@@ -6,7 +6,7 @@ class CreateDogs < ActiveRecord::Migration[5.2]
       t.integer :age
       t.string :city
       t.string :bio
-      t.integer :user_id
+      t.integer :owner_id
       t.integer :user_rating, default: 5
       t.string :instagram
 

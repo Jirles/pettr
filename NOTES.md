@@ -6,11 +6,14 @@
 - Owner-Pet relation is also a belongs_to, has_many
 
 ## MODELS
-- User - first_name, last_name username:uniq:present, email, password_digest
-- Dog - name:present, breed, age, city,  user_rating:integer  
+- User - first_name, last_name, username:uniq:present, email:present, password_digest (has_one :owner_account)
+- Dog - name:present, breed, age, city,  user_rating:integer, owner_id (has_one :pet_account)
 	- child_friendly:boolean, cat_friendly:boolean, dog_friendly:boolean (maybe later)
-- Petting - user_id, dog_id:optional, name, breed, location, pet_rating:integer, description
-- OwnerPet dog_id, user_id(owner), dog_instagram, dog_bio
+- Petting - user_id, dog_id:optional, name:present, breed, location, pet_rating:integer, description
+
+MAYBE LATER? MAYBE NOT...
+- OwnerAccount - user_id (belongs_to :user) (:user has_one :owner_account)
+- PetAccount dog_id, pet_instagram, pet_bio (belongs_to :dog) (:dog has_one :pet_account)
 
 ## INTERFACE & NESTED RESOURCES
 - Owner module: users that own a dog and have creating/editing/deleting permissions
@@ -47,4 +50,5 @@
   - Dog profiles should be nested under users (pets)
 [x] a form related to the parent resource^^
   - creating a pet profile  
-[x] forms must display validation errors
+[x] forms must display validation errors - easy
+[x] DRY - easy

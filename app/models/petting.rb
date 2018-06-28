@@ -2,5 +2,5 @@ class Petting < ActiveRecord::Base
   belongs_to :user
   belongs_to :dog
 
-  validates :name, presence: true unless :dog_id NOT NULL #not sure this will work
+  validates :name, presence: true #will assign name in controller if only dog_id is passed 
 end
