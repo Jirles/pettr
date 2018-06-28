@@ -1,0 +1,2 @@
+class PettingsController < ApplicationController
+end
