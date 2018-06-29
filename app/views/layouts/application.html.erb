@@ -11,7 +11,8 @@
 
   <body>
     <%= link_to "SignUp", signup_path %>
-    <%= link_to "LogIn", login_path %> 
+    <%= link_to "LogIn", login_path %>
+    <%= form_tag logout_path, method: "DELETE" do %> <%= submit_tag "LogOut" %> <% end %>
     <%= yield %>
   </body>
 </html>

@@ -19,12 +19,7 @@ RSpec.describe 'User Features', :type => :feature do
     end
 
     it 'creates a new user and redirects the user to their show page' do
-      visit signup_path
-      fill_in(:user_first_name, with: "Bob")
-      fill_in(:user_last_name, with: "Belcher")
-      fill_in(:user_email, with: "bob@burgers.com")
-      fill_in(:user_password, with: "burgers")
-      click_button "SignUp"
+      signup_as_bob_belcher
 
       expect(User.last.full_name).to eq("Bob Belcher")
       expect(page.current_path).to eq(user_path(User.last))
@@ -67,7 +62,7 @@ RSpec.describe 'User Features', :type => :feature do
     end
 
     it 'does not create a user with an email that is already in the database and shows an error message' do
-      User.create(first_name: "Louise", last_name: "Belcher", email: "lb@burgers.com", password: 'secret')
+      create_louise_belcher
       visit signup_path
       fill_in(:user_first_name, with: "Linda")
       fill_in(:user_last_name, with: "Belcher")
@@ -95,7 +90,7 @@ RSpec.describe 'User Features', :type => :feature do
 
   context 'LogIn page' do
     before do
-      @louise = User.create(first_name: "Louise", last_name: "Belcher", email: "lb@burgers.com", password: 'secret')
+      @louise = create_louise_belcher
     end
 
     it 'has a form  with fields for email and password' do
@@ -107,10 +102,7 @@ RSpec.describe 'User Features', :type => :feature do
     end
 
     it 'logs a user in and redirects them to the user show page' do
-      visit login_path
-      fill_in(:session_email, with: 'lb@burgers.com')
-      fill_in(:session_password, with: 'secret')
-      click_button "LogIn"
+      login_as_louise
 
       expect(page).to have_content("Louise Belcher")
       expect(page.current_path).to eq(user_path(@louise))
@@ -132,6 +124,36 @@ RSpec.describe 'User Features', :type => :feature do
 
       expect(page).to have_content("Email/password can't be blank")
       expect(page.current_path).to include('/login')
+    end
+  end
+
+  context 'Show Page' do
+    before do
+      signup_as_bob_belcher
+    end
+
+    it 'shows a users full name' do
+      expect(page).to have_content("Bob Belcher")
+    end
+
+    it 'cannot be seen if a user is logged out' do
+      click_button 'LogOut'
+      visit '/users/1'
+
+      expect(page.current_path).to eq(root_path)
+    end
+  end
+
+  context 'Logout functions' do
+    before do
+      create_louise_belcher
+      login_as_louise
+    end
+
+    it 'logs the user out and redirects them to the homepage' do
+      click_button "LogOut"
+
+      expect(page.current_path).to eq(root_path)
     end
   end
 end

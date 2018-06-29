@@ -50,6 +50,7 @@ RSpec.configure do |config|
   end
   config.include Capybara::DSL
   config.include ModelHelper, :type => :model
+  config.include LoginHelper, :type => :feature
 
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
