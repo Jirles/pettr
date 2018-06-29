@@ -10,11 +10,10 @@ RSpec.describe 'User Features', :type => :feature do
       expect(page).to have_selector('form')
     end
 
-    it 'has fields for first_name, last_name, username, email, and password' do
+    it 'has fields for first_name, last_name, email, and password' do
       visit signup_path
       fill_in(:user_first_name, with: "Bob")
       fill_in(:user_last_name, with: "Belcher")
-      fill_in(:user_username, with: "Burger King")
       fill_in(:user_email, with: "bob@burgers.com")
       fill_in(:user_password, with: "burgers")
     end
@@ -23,7 +22,6 @@ RSpec.describe 'User Features', :type => :feature do
       visit signup_path
       fill_in(:user_first_name, with: "Bob")
       fill_in(:user_last_name, with: "Belcher")
-      fill_in(:user_username, with: "Burger King")
       fill_in(:user_email, with: "bob@burgers.com")
       fill_in(:user_password, with: "burgers")
       click_button "SignUp"
@@ -32,11 +30,10 @@ RSpec.describe 'User Features', :type => :feature do
       expect(page.current_path).to eq(user_path(User.last))
     end
 
-    it 'does not create a user without a username' do
+    it 'does not create a user without an email' do
       visit signup_path
       fill_in(:user_first_name, with: "Bob")
       fill_in(:user_last_name, with: "Belcher")
-      fill_in(:user_email, with: "bob@burgers.com")
       fill_in(:user_password, with: "burgers")
       click_button "SignUp"
 
@@ -44,11 +41,12 @@ RSpec.describe 'User Features', :type => :feature do
       expect(User.all.size).to eq(0)
     end
 
-    it 'does not create a user without an email' do
+    it 'does not create a user with an email that is already in the database' do
+      User.create(first_name: "Louise", last_name: "Belcher", email: "lb@burgers.com", password: 'secret')
       visit signup_path
-      fill_in(:user_first_name, with: "Bob")
+      fill_in(:user_first_name, with: "Linda")
       fill_in(:user_last_name, with: "Belcher")
-      fill_in(:user_username, with: "Burger King")
+      fill_in(:user_email, with: "lb@burgers.com")
       fill_in(:user_password, with: "burgers")
       click_button "SignUp"
 
@@ -60,7 +58,6 @@ RSpec.describe 'User Features', :type => :feature do
       visit signup_path
       fill_in(:user_first_name, with: "Bob")
       fill_in(:user_last_name, with: "Belcher")
-      fill_in(:user_username, with: "Burger King")
       fill_in(:user_email, with: "bob@burgers.com")
       click_button "SignUp"
 

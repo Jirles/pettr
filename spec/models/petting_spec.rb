@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Petting Model' do
-  before(:all) do
+  before(:each) do
     set_variables
   end
 

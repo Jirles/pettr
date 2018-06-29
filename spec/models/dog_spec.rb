@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Dog, :type => :model do
   #sets variables using ModelHelper module
-  before(:all) do
+  before(:each) do
     set_variables
   end
 

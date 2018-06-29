@@ -1,15 +1,30 @@
 module ModelHelper
 
   def set_variables
+    #users
     @jquest = User.create(
         :first_name => "Johnny",
         :last_name => "Quest",
-        :username => "Mr.Quest",
         :email => "jquest@cartoons.com",
         :password => 'password'
       )
 
-    @bandit = Dog.create(
+        @lightning = User.create(
+          :first_name => "Lightning",
+          :last_name => "McQueen",
+          :email => "go_fast@cars.com",
+          :password => 'fastest'
+        )
+
+        @linda = User.create(
+          :first_name => "Linda",
+          :last_name => "Belcher",
+          :email => "lbelcher@bobsburgers.com",
+          :password => 'bestmomever'
+        )
+
+    #dogs
+        @bandit = Dog.create(
           :name => "Bandit",
           :breed => 'Bulldog',
           :age => 4,
@@ -19,7 +34,7 @@ module ModelHelper
           :user_rating => 4.5
         )
 
-    @whitefang = Dog.create(
+      @whitefang = Dog.create(
         :name => "White Fang",
         :breed => "Siberian Husky",
         :age => 2,
@@ -27,22 +42,7 @@ module ModelHelper
         :bio => "Enjoys the call of the wild"
       )
 
-    @lightning = User.create(
-        :first_name => "Lightning",
-        :last_name => "McQueen",
-        :username => "VroomVroom",
-        :email => "go_fast@cars.com",
-        :password => 'fastest'
-      )
-
-    @linda = User.create(
-        :first_name => "Linda",
-        :last_name => "Belcher",
-        :username => "Momma Belcher",
-        :email => "lbelcher@bobsburgers.com",
-        :password => 'bestmomever'
-      )
-
+    #pettings
     @lightning_bandit = Petting.create(
       :user_id => @lightning.id,
       :dog_id => @bandit.id,

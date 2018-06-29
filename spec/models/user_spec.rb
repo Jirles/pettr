@@ -1,24 +1,18 @@
 require 'rails_helper'
 
 describe 'User Model' do
-  before(:all) do
+  before(:each) do
     set_variables
   end
 
-  it 'has attributes first_name, last_name, username, email, and password' do
+  it 'has attributes first_name, last_name, email, and password' do
     expect(@linda).to be_valid
   end
 
-  it 'requires an email to be present' do
-    no_email = User.create(:last_name => "Jirles", :username => "jirles", :password => 'secret')
+  it 'requires an email to be present and unique' do
+    no_email = User.create(:first_name => "Emily", :last_name => "Jirles", :password => 'secret')
+    copy_cat = User.create(:first_name => "Jack", :last_name => "Quest", :email => 'jquest@cartoons.com', :password => 'fail')
     expect(no_email).to be_invalid
-  end
-
-  it 'requires a username to be present and it must be unique' do
-    no_username = User.create(:last_name => "Jirles", :password => 'secret')
-    copy_cat = User.create(:first_name => "Jack", :last_name => "Quest", :username => 'Mr.Quest', :password => 'fail')
-
-    expect(no_username).to be_invalid
     expect(copy_cat).to be_invalid
   end
 
