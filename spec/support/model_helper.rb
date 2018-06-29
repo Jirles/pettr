@@ -63,6 +63,14 @@ module ModelHelper
       :description => 'BEST DOG EVAAA!!!!'
       )
 
+    @linda_whitefang = Petting.create(
+      :user_id => @linda.id,
+      :dog_id => @whitefang.id,
+      :location => "Ocean City, New Jersey",
+      :pet_rating => 3,
+      :description => 'Eh... it was ok'
+      )
+
     @jquest_whitefang = Petting.create(
         :user_id => @jquest.id,
         :dog_id => @whitefang.id,
