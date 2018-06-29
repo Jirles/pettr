@@ -8,4 +8,9 @@ class Dog < ActiveRecord::Base
     self.owner_id ? User.find(self.owner_id) : nil
   end
 
+  def update_rating(new_rating)
+    self.user_rating = ((new_rating + self.user_rating) / 2.0).round(2)
+    self.save
+  end
+
 end

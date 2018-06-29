@@ -5,7 +5,7 @@ class CreateDogs < ActiveRecord::Migration[5.2]
       t.string :breed
       t.string :age
       t.string :city
-      t.integer :user_rating
+      t.float :user_rating, default: 5.00
       t.integer :owner_id
       t.string :bio
     end

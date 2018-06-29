@@ -6,8 +6,8 @@ class CreatePettings < ActiveRecord::Migration[5.2]
       t.string :name
       t.string :breed
       t.string :location
-      t.integer :pet_rating
+      t.float :pet_rating
       t.string :description
     end
-  end
+  end 
 end

@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_29_000713) do
+ActiveRecord::Schema.define(version: 2018_06_29_161933) do
 
   create_table "dogs", force: :cascade do |t|
     t.string "name"
     t.string "breed"
     t.string "age"
     t.string "city"
-    t.integer "user_rating", default: 5
+    t.float "user_rating", default: 5.0
     t.integer "owner_id"
     t.string "bio"
   end
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 2018_06_29_000713) do
     t.string "name"
     t.string "breed"
     t.string "location"
-    t.integer "pet_rating"
+    t.float "pet_rating"
     t.string "description"
   end
 
