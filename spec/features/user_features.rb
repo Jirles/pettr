@@ -115,5 +115,23 @@ RSpec.describe 'User Features', :type => :feature do
       expect(page).to have_content("Louise Belcher")
       expect(page.current_path).to eq(user_path(@louise))
     end
+
+    it 'does not let a user log in without an email and shows an error message' do
+      visit login_path
+      fill_in(:session_password, with: 'secret')
+      click_button "LogIn"
+
+      expect(page).to have_content("Email/password can't be blank")
+      expect(page.current_path).to include('/login')
+    end
+
+    it 'does not let a user log in without a password and shows an error message' do
+      visit login_path
+      fill_in(:session_email, with: 'lb@burgers.com')
+      click_button "LogIn"
+
+      expect(page).to have_content("Email/password can't be blank")
+      expect(page.current_path).to include('/login')
+    end
   end
 end

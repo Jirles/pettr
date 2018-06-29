@@ -10,4 +10,10 @@ module ApplicationHelper
     end
   end
 
+  def display_flash_notices
+    if flash[:notice]
+      content_tag :p, flash[:notice], :class => 'flash-notice-field'
+    end
+  end
+
 end

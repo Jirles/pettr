@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
       session[:user_id] = @user.id
       redirect_to user_path(@user)
     else
-      @errors = @user.errors
+      flash[:notice] = "Email/password can't be blank"
       render :new
     end
   end
