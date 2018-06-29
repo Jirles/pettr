@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'User Features', :type => :feature do
-  context 'Sign up page' do
+  context 'SignUp page' do
     it 'has a form to create a new user' do
       visit signup_path
 
@@ -38,6 +38,7 @@ RSpec.describe 'User Features', :type => :feature do
       click_button "SignUp"
 
       expect(page.current_path).to include('/signup')
+      expect(page).to have_content("First name can't be blank")
       expect(User.all.size).to eq(0)
     end
 
@@ -49,6 +50,7 @@ RSpec.describe 'User Features', :type => :feature do
       click_button "SignUp"
 
       expect(page.current_path).to include('/signup')
+      expect(page).to have_content("Last name can't be blank")
       expect(User.all.size).to eq(0)
     end
 
@@ -60,6 +62,7 @@ RSpec.describe 'User Features', :type => :feature do
       click_button "SignUp"
 
       expect(page.current_path).to include('/signup')
+      expect(page).to have_content("Email can't be blank")
       expect(User.all.size).to eq(0)
     end
 
@@ -73,6 +76,7 @@ RSpec.describe 'User Features', :type => :feature do
       click_button "SignUp"
 
       expect(page.current_path).to include('/signup')
+      expect(page).to have_content("Email has already been taken")
       expect(User.last.first_name).to eq("Louise")
     end
 
@@ -84,8 +88,32 @@ RSpec.describe 'User Features', :type => :feature do
       click_button "SignUp"
 
       expect(page.current_path).to include('/signup')
+      expect(page).to have_content("Password can't be blank")
       expect(User.all.size).to eq(0)
     end
+  end
 
+  context 'LogIn page' do
+    before do
+      @louise = User.create(first_name: "Louise", last_name: "Belcher", email: "lb@burgers.com", password: 'secret')
+    end
+
+    it 'has a form  with fields for email and password' do
+      visit login_path
+
+      expect(page).to have_selector('form')
+      fill_in(:session_email, with: 'lb@burgers.com')
+      fill_in(:session_password, with: 'secret')
+    end
+
+    it 'logs a user in and redirects them to the user show page' do
+      visit login_path
+      fill_in(:session_email, with: 'lb@burgers.com')
+      fill_in(:session_password, with: 'secret')
+      click_button "LogIn"
+
+      expect(page).to have_content("Louise Belcher")
+      expect(page.current_path).to eq(user_path(@louise))
+    end
   end
 end
