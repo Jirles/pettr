@@ -30,18 +30,40 @@ RSpec.describe 'User Features', :type => :feature do
       expect(page.current_path).to eq(user_path(User.last))
     end
 
-    it 'does not create a user without an email' do
+    it 'does not create a user without a first name and shows an error message' do
       visit signup_path
-      fill_in(:user_first_name, with: "Bob")
       fill_in(:user_last_name, with: "Belcher")
-      fill_in(:user_password, with: "burgers")
+      fill_in(:user_email, with: "zombie_butts@burgers.com")
+      fill_in(:user_password, with: "iheartbutts")
       click_button "SignUp"
 
       expect(page.current_path).to include('/signup')
       expect(User.all.size).to eq(0)
     end
 
-    it 'does not create a user with an email that is already in the database' do
+    it 'does not create a user without a last name and shows an error message' do
+      visit signup_path
+      fill_in(:user_first_name, with: "Tina")
+      fill_in(:user_email, with: "zombie_butts@burgers.com")
+      fill_in(:user_password, with: "iheartbutts")
+      click_button "SignUp"
+
+      expect(page.current_path).to include('/signup')
+      expect(User.all.size).to eq(0)
+    end
+
+    it 'does not create a user without an email and shows an error message' do
+      visit signup_path
+      fill_in(:user_first_name, with: "Tina")
+      fill_in(:user_last_name, with: "Belcher")
+      fill_in(:user_password, with: "iheartbutts")
+      click_button "SignUp"
+
+      expect(page.current_path).to include('/signup')
+      expect(User.all.size).to eq(0)
+    end
+
+    it 'does not create a user with an email that is already in the database and shows an error message' do
       User.create(first_name: "Louise", last_name: "Belcher", email: "lb@burgers.com", password: 'secret')
       visit signup_path
       fill_in(:user_first_name, with: "Linda")
@@ -51,18 +73,19 @@ RSpec.describe 'User Features', :type => :feature do
       click_button "SignUp"
 
       expect(page.current_path).to include('/signup')
-      expect(User.all.size).to eq(0)
+      expect(User.last.first_name).to eq("Louise")
     end
 
-    it 'does not create a user without a password' do
+    it 'does not create a user without a password and shows an error message' do
       visit signup_path
-      fill_in(:user_first_name, with: "Bob")
+      fill_in(:user_first_name, with: "Tina")
       fill_in(:user_last_name, with: "Belcher")
-      fill_in(:user_email, with: "bob@burgers.com")
+      fill_in(:user_email, with: "zombie_butts@burgers.com")
       click_button "SignUp"
 
       expect(page.current_path).to include('/signup')
       expect(User.all.size).to eq(0)
     end
+
   end
 end
