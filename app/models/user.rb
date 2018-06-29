@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  has_secure_password 
   has_many :pettings
   has_many :dogs, through: :pettings #user can pet a lot of dogs
 

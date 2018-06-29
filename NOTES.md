@@ -14,6 +14,7 @@
 MAYBE LATER? MAYBE NOT...
 - OwnerAccount - user_id (belongs_to :user) (:user has_one :owner_account)
 - PetAccount dog_id, pet_instagram, pet_bio (belongs_to :dog) (:dog has_one :pet_account)
+- SocialMediaAccount
 
 ## INTERFACE & NESTED RESOURCES
 - Owner module: users that own a dog and have creating/editing/deleting permissions
