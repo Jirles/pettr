@@ -1,0 +1,9 @@
+<h1><%= @petting.description %></h1>
+<h3><%= petting_rating_display(@petting)%></h3>
+
+<ul>
+  <li>Human: <%= @petting.user.full_name %></li>
+  <li>Dog: <%= @petting.name %> </li>
+  <li>Breed: <%= @petting.breed %></li>
+  <li>Location: <%= @petting.location %></li>
+</ul>
