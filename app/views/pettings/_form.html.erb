@@ -1,0 +1,27 @@
+<%= form_for(petting) do |f| %>
+  <%= f.label :dog_id, "Select a dog's Pettr profile: "%>
+  <%= f.collection_select(:dog_id, dogs, :id, :name, prompt: true, include_blank: "Fill out manually") %>
+  <br>
+  <%= f.label "Or add its information here: "%>
+  <br>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <br>
+  <%= f.label :breed %>
+  <%= f.text_field :breed %>
+  <br>
+  <%= f.label :location %>
+  <%= f.text_field :location %>
+  <br>
+  <%= f.label :pet_rating, "On a scale of 0 to 5, how was it? " %>
+  <br>
+  <% 6.times do |i| %>
+    <%= f.label :pet_rating, i %>
+    <%= f.radio_button :pet_rating, i %>
+  <% end %>
+  <br><br>
+  <%= f.label :description %>
+  <%= f.text_area :description %>
+  <br><br>
+  <%= f.submit "Pettr" %>
+<% end %>

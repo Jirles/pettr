@@ -10,11 +10,19 @@ class PettingsController < ApplicationController
   end
 
   def new
-    @petting = @current_user.pettings.build
+    @user = User.find(session[:user_id])
+    @petting = @user.pettings.build
+    @dogs = Dog.all
   end
 
   def create
     raise params.inspect
+  end
+
+  private
+
+  def petting_params
+    params.require(:petting).permit(:user_id, :dog_id, :name, :breed, :location, :pet_rating, :description)
   end
 
 end

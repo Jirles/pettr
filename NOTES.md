@@ -25,6 +25,13 @@ MAYBE LATER? MAYBE NOT...
 - People can also view all interactions: /pettings & /pettings/3 but cannot edit/delete
 - Users can only see their profile (for now)
 - You can view dog profiles too if they exist dogs/3
+## LATER
+- Add [User Name]'s Profile link to navbar and `set_current_user` to application controller
+- Format forms 
+
+## FUTURE FUTURE
+- Interactive petting form that only shows certain fields (name, breed) if a profile isn't selected
+- Slide bar to register pet rating instead of radio buttons
 
 ## Specs for project
 [x] has_many, belongs_to, and has_many :through

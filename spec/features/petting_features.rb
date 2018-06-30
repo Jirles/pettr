@@ -57,6 +57,16 @@ RSpec.describe 'Petting Features', :type => :feature do
       visit new_petting_path
       expect(page.current_path).to eq(root_path)
     end
+
+    it 'has a form with petting fields' do
+      visit new_petting_path
+
+      expect(page).to have_selector('form')
+      expect(page).to have_content("Select a dog's Pettr profile:")
+      expect(page).to have_field(:petting_pet_rating_0)
+      expect(page).to have_field(:petting_dog_id)
+      expect(page).to have_button("Pettr")
+    end
   end
 
 end
