@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root 'application#home'
 
-  resources :pettings, only: [:index]
+  resources :pettings, only: [:index, :show]
   resources :dogs, only: [:index, :show]
   resources :users, only: [:show]
 

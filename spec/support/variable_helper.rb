@@ -1,4 +1,4 @@
-module ModelHelper
+module VariableHelper
 
   def set_variables
     #users

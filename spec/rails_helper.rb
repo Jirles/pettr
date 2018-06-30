@@ -49,8 +49,9 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
   config.include Capybara::DSL
-  config.include ModelHelper, :type => :model
+  config.include VariableHelper, :type => :model
   config.include LoginHelper, :type => :feature
+  config.include VariableHelper, :type => :feature
 
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 

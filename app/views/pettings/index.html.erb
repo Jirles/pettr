@@ -1,0 +1,11 @@
+<h1>Pettr</h1>
+
+<% @pettings.each do |petting| %>
+  <div class="petting-card">
+    <span class="petting-info-span petting-description-link"><%= link_to petting.description, petting_path(petting) %></span><br>
+    <span class="petting-info-span"><%= user_dog_petting_display(petting) %></span><br>
+    <span class="petting-info-span"><%= petting_rating_display(petting) %> </span><br>
+    <span class="petting-info-span"><%= petting.location %></span>
+  </div>
+  <br>
+<% end %>
