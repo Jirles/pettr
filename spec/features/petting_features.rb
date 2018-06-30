@@ -34,7 +34,29 @@ RSpec.describe 'Petting Features', :type => :feature do
   end
 
   context 'show page' do
+    before do
+      signup_as_bob_belcher
+    end
 
-  end 
+    it 'shows petting details' do
+      visit petting_path(@lightning_bandit)
+
+      expect(page).to have_content("Very happy, but very high energy, overall a good dog")
+      expect(page).to have_content("Breed: Bulldog")
+      expect(page).to have_content("Location: Raleigh, North Carolina")
+    end
+  end
+
+  context 'create petting' do
+    before do
+      signup_as_bob_belcher
+    end
+    it 'can only be accessed if you are logged in' do
+      click_button "LogOut"
+
+      visit new_petting_path
+      expect(page.current_path).to eq(root_path)
+    end
+  end
 
 end

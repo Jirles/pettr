@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
   root 'pettings#index'
 
-  resources :pettings, only: [:index, :show]
+  resources :pettings, only: [:index, :show, :new, :create]
   resources :dogs, only: [:index, :show]
   resources :users, only: [:show]
-
+  #signup
   get '/signup' => 'users#new'
   post '/signup' => 'users#create'
   #sessions
