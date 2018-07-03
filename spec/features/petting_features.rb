@@ -81,6 +81,33 @@ RSpec.describe 'Petting Features', :type => :feature do
       expect(page).to have_content("3.0/5.0 would do it again")
       expect(Petting.last.description).to eq("Not sure where this dog came from, but Louise liked it.")
     end
+
+    it 'creates a new petting instance even if a dog_id is not chosen' do
+      visit new_petting_path
+      fill_in(:petting_name, with: "Blue")
+      fill_in(:petting_breed, with: "Border Collie")
+      fill_in(:petting_location, with: "Lore City, Ohio")
+      choose(:petting_pet_rating_5)
+      fill_in(:petting_description, with: "Best Dawg Ever.")
+      click_button "Pettr"
+
+      expect(page.current_path).to eq(petting_path(Petting.last))
+      expect(page).to have_content("Breed: Border Collie")
+    end
+
+    it 'defaults to the linked profile data if a dog_id, name, and breed are all submitted' do
+      visit new_petting_path
+      select("Bandit", from: :petting_dog_id)
+      fill_in(:petting_name, with: "Blue")
+      fill_in(:petting_breed, with: "Border Collie")
+      fill_in(:petting_location, with: "Lore City, Ohio")
+      choose(:petting_pet_rating_5)
+      fill_in(:petting_description, with: "Best Dawg Ever.")
+      click_button "Pettr"
+
+      expect(page).to have_content("Dog: Bandit")
+      expect(page).to have_content("Breed: Bulldog")
+    end
   end
 
 end
