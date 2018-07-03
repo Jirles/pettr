@@ -27,7 +27,8 @@ MAYBE LATER? MAYBE NOT...
 - You can view dog profiles too if they exist dogs/3
 ## LATER
 - Add [User Name]'s Profile link to navbar and `set_current_user` to application controller
-- Format forms 
+- Format forms
+- fix so it accepts dog_attributes= 
 
 ## FUTURE FUTURE
 - Interactive petting form that only shows certain fields (name, breed) if a profile isn't selected

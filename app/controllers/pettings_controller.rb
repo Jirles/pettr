@@ -1,5 +1,5 @@
 class PettingsController < ApplicationController
-  before_action :require_login, only: [:show, :new]
+  before_action :require_login, only: [:show, :new, :create]
 
   def index
     @pettings = Petting.all
@@ -10,19 +10,27 @@ class PettingsController < ApplicationController
   end
 
   def new
-    @user = User.find(session[:user_id])
-    @petting = @user.pettings.build
+    @petting = Petting.new
     @dogs = Dog.all
   end
 
   def create
-    raise params.inspect
+    @user = User.find(session[:user_id])
+    petting = @user.pettings.build(petting_params)
+    petting.set_attributes_if_dog_exists
+    if petting.save
+      redirect_to petting_path(petting)
+    else
+      redirect_to new_petting_path
+    end
+
   end
 
   private
+#  params.require(:petting).permit({dog_attributes: [:dog_id, :name, :breed]}, :location, :pet_rating, :description)
 
   def petting_params
-    params.require(:petting).permit(:user_id, :dog_id, :name, :breed, :location, :pet_rating, :description)
+    params.require(:petting).permit(:location, :pet_rating, :description, :dog_id, :name, :breed)
   end
 
 end

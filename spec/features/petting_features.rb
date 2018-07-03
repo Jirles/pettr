@@ -67,6 +67,20 @@ RSpec.describe 'Petting Features', :type => :feature do
       expect(page).to have_field(:petting_dog_id)
       expect(page).to have_button("Pettr")
     end
+
+    it 'creates a new petting instance using a dogs profile and redirects the user to the petting show page' do
+      visit new_petting_path
+      select("White Fang", from: :petting_dog_id)
+      fill_in(:petting_location, with: "Bob's Burgers Restaurant")
+      choose(:petting_pet_rating_3)
+      fill_in(:petting_description, with: "Not sure where this dog came from, but Louise liked it.")
+      click_button "Pettr"
+
+      expect(page.current_path).to eq(petting_path(Petting.last))
+      expect(page).to have_content("Breed: Siberian Husky")
+      expect(page).to have_content("3.0/5.0 would do it again")
+      expect(Petting.last.description).to eq("Not sure where this dog came from, but Louise liked it.")
+    end
   end
 
 end
