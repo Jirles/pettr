@@ -7,3 +7,13 @@
   <li>Breed: <%= @petting.breed %></li>
   <li>Location: <%= @petting.location %></li>
 </ul>
+
+<!--
+<%= edit_delete_options %>
+-->
+<% if @petting.user = @current_user %>
+  <%= link_to "Edit", edit_petting_path(@petting) %>
+  <%= form_tag petting_path(@petting), method: "delete" do %>
+    <%= submit_tag "Delete" %>
+  <% end %>
+<% end %>

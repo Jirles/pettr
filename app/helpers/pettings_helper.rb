@@ -7,4 +7,7 @@ module PettingsHelper
   def petting_rating_display(petting)
     "#{petting.pet_rating}/5.0 would do it again"
   end
+
+  def edit_delete_options
+  end
 end

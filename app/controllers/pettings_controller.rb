@@ -1,6 +1,6 @@
 require 'byebug'
 class PettingsController < ApplicationController
-  before_action :require_login, only: [:show, :new, :create]
+  before_action :require_login, expect: [:index]
 
   def index
     @pettings = Petting.all
@@ -16,8 +16,7 @@ class PettingsController < ApplicationController
   end
 
   def create
-    @user = User.find(session[:user_id])
-    petting = @user.pettings.build(petting_params)
+    petting = @current_user.pettings.build(petting_params)
     petting.set_attributes_if_dog_exists
     if petting.save
       redirect_to petting_path(petting)
@@ -32,7 +31,7 @@ class PettingsController < ApplicationController
   end
 
   def update
-
+    
   end
 
   private
