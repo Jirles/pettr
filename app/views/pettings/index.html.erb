@@ -1,4 +1,7 @@
+<%= display_flash_notices %>
+
 <h1>Pettr</h1>
+<%= link_to "Create new Pettr", new_petting_path %>
 
 <% @pettings.each do |petting| %>
   <div class="petting-card">

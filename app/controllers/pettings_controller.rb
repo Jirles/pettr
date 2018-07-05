@@ -27,6 +27,7 @@ class PettingsController < ApplicationController
 
   def edit
     @petting = Petting.find(params[:id])
+    owner_permissions_check(@petting.user_id) #=> redirects to root path if check fails
     @dogs = Dog.all
   end
 

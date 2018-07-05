@@ -8,10 +8,5 @@
   <li>Location: <%= @petting.location %></li>
 </ul>
 
-<!--
-<%= edit_delete_options %>
--->
-<% if @petting.user == @current_user %>
-  <%= link_to "Edit", edit_petting_path(@petting) %>
-  <%= link_to "Delete", @petting, method: :delete, data: { confirm: "Are you sure you want to delete this record?" } %>
-<% end %>
+
+<%= edit_delete_options(@petting, @current_user) %>
