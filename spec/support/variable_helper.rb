@@ -71,7 +71,7 @@ module VariableHelper
       :description => 'BEST DOG EVAAA!!!!'
       )
 
-    @linda_whitefang = Petting.create(
+    @linda_buck = Petting.create(
       :user_id => @linda.id,
       :dog_id => @buck.id,
       :location => "Ocean City, New Jersey",
@@ -79,7 +79,7 @@ module VariableHelper
       :description => 'Eh... it was ok'
       )
 
-    @jquest_whitefang = Petting.create(
+    @jquest_buck = Petting.create(
         :user_id => @jquest.id,
         :dog_id => @buck.id,
         :location => "Yukon",

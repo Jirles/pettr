@@ -21,7 +21,7 @@ RSpec.describe Dog, :type => :model do
   end
 
   it 'has an attribute user_rating that defaults to 5' do
-    expect(@whitefang.user_rating).to eq(5.00)
+    expect(@buck.user_rating).to eq(5.00)
   end
 
   it 'has many users through pettings' do
@@ -34,8 +34,8 @@ RSpec.describe Dog, :type => :model do
   end
 
   it 'has a method to calculate the update its user_rating after a petting' do
-    @whitefang.update_rating(@jquest_whitefang.pet_rating)
+    @buck.update_rating(@jquest_buck.pet_rating)
 
-    expect(@whitefang.user_rating).to eq(3.50)
+    expect(@buck.user_rating).to eq(3.50)
   end
 end
