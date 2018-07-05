@@ -50,7 +50,7 @@ jquest = User.create(
     :breed => "Siberian Husky",
     :age => 2,
     :city => "Juneau, Alaska",
-    :owner_id => judge.id
+    :owner_id => judge.id,
     :bio => "Enjoys the call of the wild"
   )
 
