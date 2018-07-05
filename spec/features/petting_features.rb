@@ -149,28 +149,24 @@ RSpec.describe 'Petting Features', :type => :feature do
     end
   end
 
-  context 'delete/destroy action' do
+  context 'delete/destroy action features' do
     before do
       @louise = create_louise_belcher
       login_as_louise
-      @louise_blue = Petting.create(user_id: @louise.id, name: "Blue", breed: "Border Collie", location: "Lre City, Ohio", pet_rating: 4.0, description: "A very pretty pup")
+      @louise_blue = Petting.create(user_id: @louise.id, name: "Blue", breed: "Border Collie", location: "Lore City, Ohio", pet_rating: 4.0, description: "A very pretty pup")
     end
 
-    it 'can only be triggered by a pettings owner' do
+    it 'can only be accessed by a pettings owner' do
       visit petting_path(@linda_bandit)
       expect(page).not_to have_button("Delete")
-
-      delete "/pettings/#{@linda_bandit.id}"
-      expect(last_response.location).to eq(root_path)
-      expect(Petting.find(@linda_bandit.id)).to be_truthy
     end
 
     it 'deletes a petting' do
       visit petting_path(@louise_blue)
-      click_button "Delete"
-      #confirm?
+     click_link "Delete"
+
       expect(page.current_path).to eq(root_path)
-      expect(Petting.find(@louise_blue.id)).to be_falsey
-    end
+      expect(Petting.find_by(id: @louise_blue.id)).to be_falsey
+      end
   end
 end

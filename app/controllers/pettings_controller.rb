@@ -45,6 +45,15 @@ class PettingsController < ApplicationController
     end
   end
 
+  def destroy
+    set_petting
+    owner_permissions_check(@petting.user_id) #=> redirects to root path if check fails
+    
+    Petting.find(@petting.id).destroy
+    flash[:notice] = "Record successfully deleted."
+    redirect_to root_path
+  end
+
   private
 
   def petting_params

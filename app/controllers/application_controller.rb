@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
 
   def owner_permissions_check(user_id)
     if user_id != @current_user.id
-      flash[:notice] = "You do not have permissions for this content."
+      flash[:notice] = "Sorry, but you're not allowed to do that."
       redirect_to root_path
     end
   end
