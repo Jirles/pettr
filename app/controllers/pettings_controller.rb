@@ -1,3 +1,4 @@
+require 'byebug'
 class PettingsController < ApplicationController
   before_action :require_login, only: [:show, :new, :create]
 
@@ -23,11 +24,18 @@ class PettingsController < ApplicationController
     else
       redirect_to new_petting_path
     end
+  end
+
+  def edit
+    @petting = Petting.find(params[:id])
+    @dogs = Dog.all
+  end
+
+  def update
 
   end
 
   private
-#  params.require(:petting).permit({dog_attributes: [:dog_id, :name, :breed]}, :location, :pet_rating, :description)
 
   def petting_params
     params.require(:petting).permit(:location, :pet_rating, :description, :dog_id, :name, :breed)

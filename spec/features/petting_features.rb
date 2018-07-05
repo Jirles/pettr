@@ -110,4 +110,67 @@ RSpec.describe 'Petting Features', :type => :feature do
     end
   end
 
+  context 'edit page' do
+    before do
+      @louise = create_louise_belcher
+      login_as_louise
+      @louise_blue = Petting.create(user_id: @louise.id, name: "Blue", breed: "Border Collie", location: "Lre City, Ohio", pet_rating: 4, description: "A very pretty pup")
+    end
+
+    it 'has a form with pre-filled information' do
+      visit edit_petting_path(@louise_blue)
+
+      expect(page).to have_selector('form')
+      expect(page).to have_selector('input#petting_name', text: "Blue")
+      expect(page).to have_checked_field(:petting_pet_rating_4)
+      expect(page).to have_selector('input#petting_description', text: "A very pretty pup")
+    end
+
+    it 'can only be accessed by the user who owns the petting involved' do
+      visit edit_petting_path(@linda_bandit)
+
+      expect(page.current_path).to eq(root_path)
+      #expect(page).to have_content("You don't have access to this item") or an error page
+    end
+
+    it 'lets you edit a petting' do
+      visit edit_petting_path(@louise_blue)
+      fill_in(:petting_location, with: "Lore City, Ohio")
+      click_button "Pettr"
+
+      expect(page.current_path).to eq(petting_path(@louise_blue))
+      expect(page).to have_content("Location: Lore City, Ohio")
+    end
+
+    it 'can be accessed by an Edit button on the pettings show page' do
+      visit petting_path(@louise_blue)
+      click_button "Edit"
+      expect(page.current_path).to eq(edit_petting_path(@louise_blue))
+    end
+  end
+
+  context 'delete/destroy action' do
+    before do
+      @louise = create_louise_belcher
+      login_as_louise
+      @louise_blue = Petting.create(user_id: @louise.id, name: "Blue", breed: "Border Collie", location: "Lre City, Ohio", pet_rating: 4, description: "A very pretty pup")
+    end
+
+    it 'can only be triggered by a pettings owner' do
+      visit petting_path(@linda_bandit)
+      expect(page).not_to have_button("Delete")
+
+      delete "/pettings/#{@linda_bandit.id}"
+      expect(last_response.location).to eq(root_path)
+      expect(Petting.find(@linda_bandit.id)).to be_truthy
+    end
+
+    it 'deletes a petting' do
+      visit petting_path(@louise_blue)
+      click_button "Delete"
+      #confirm?
+      expect(page.current_path).to eq(root_path)
+      expect(Petting.find(@louise_blue.id)).to be_falsey
+    end
+  end
 end

@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root 'pettings#index'
 
-  resources :pettings, only: [:index, :show, :new, :create]
+  resources :pettings
   resources :dogs, only: [:index, :show]
   resources :users, only: [:show]
   #signup
