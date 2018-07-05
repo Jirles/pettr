@@ -70,7 +70,7 @@ RSpec.describe 'Petting Features', :type => :feature do
 
     it 'creates a new petting instance using a dogs profile and redirects the user to the petting show page' do
       visit new_petting_path
-      select("White Fang", from: :petting_dog_id)
+      select("Buck", from: :petting_dog_id)
       fill_in(:petting_location, with: "Bob's Burgers Restaurant")
       choose(:petting_pet_rating_30) #=> 3.0
       fill_in(:petting_description, with: "Not sure where this dog came from, but Louise liked it.")

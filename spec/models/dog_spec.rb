@@ -11,8 +11,13 @@ RSpec.describe Dog, :type => :model do
   end
 
   it 'does not validate without a name' do
-    bad_dog = Dog.create(breed: "Terrier", city: "Columbus, Ohio")
+    bad_dog = Dog.create(breed: "Terrier", city: "Columbus, Ohio", owner_id: 4)
     expect(bad_dog).to be_invalid
+  end
+
+  it 'does not validate without an owner_id' do
+    no_owner = Dog.create(name: "Blue", breed: "Border Collie", city: "Lore City, Ohio", user_rating: 4.0)
+    expect(no_owner).to be_invalid
   end
 
   it 'has an attribute user_rating that defaults to 5' do

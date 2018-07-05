@@ -23,6 +23,13 @@ module VariableHelper
       :password => 'bestmomever'
     )
 
+    @judge = User.create(
+      :first_name => "Judge",
+      :last_name => "Miller",
+      :email => "jmiller@london.com",
+      :password => "password"
+    )
+
     #dogs
     @bandit = Dog.create(
       :name => "Bandit",
@@ -34,12 +41,13 @@ module VariableHelper
       :user_rating => 4.5
     )
 
-    @whitefang = Dog.create(
-      :name => "White Fang",
+    @buck = Dog.create(
+      :name => "Buck",
       :breed => "Siberian Husky",
       :age => 2,
       :city => "Juneau, Alaska",
-      :bio => "Enjoys the call of the wild"
+      :bio => "Enjoys the call of the wild",
+      :owner_id => @judge.id
     )
 
     #pettings
@@ -65,7 +73,7 @@ module VariableHelper
 
     @linda_whitefang = Petting.create(
       :user_id => @linda.id,
-      :dog_id => @whitefang.id,
+      :dog_id => @buck.id,
       :location => "Ocean City, New Jersey",
       :pet_rating => 3,
       :description => 'Eh... it was ok'
@@ -73,7 +81,7 @@ module VariableHelper
 
     @jquest_whitefang = Petting.create(
         :user_id => @jquest.id,
-        :dog_id => @whitefang.id,
+        :dog_id => @buck.id,
         :location => "Yukon",
         :pet_rating => 2,
         :description => "Seemed a little wild..."

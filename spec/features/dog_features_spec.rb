@@ -40,6 +40,32 @@ RSpec.describe 'Dog Features', :type => :feature do
       expect(page).to have_content("Please login or signup to view more content.")
     end
   end
+
+  describe 'show page' do
+    before do
+      signup_as_bob_belcher
+    end
+
+    context 'accessed by non-affiliated user' do
+      it 'shows a dogs information and the pettings it has been involved in if any' do
+        visit dog_path(@bandit)
+
+        expect(page).to have_content(@bandit.name)
+        expect(page).to have_content("#{@bandit.user_rating} stars")
+        expect(page).to have_link("BEST DOG EVAAA!!!!")
+        expect(page).to have_link("Very happy, but very high energy, overall a good dog")
+      end
+
+      it 'links to individual pettings' do
+        visit dog_path(@bandit)
+        click_link "BEST DOG EVAAA!!!!"
+
+        expect(page.current_path).to eq(petting_path(@linda_bandit))
+      end
+    end
+  end
+
+
   # dogs index & show => public - dogs index should have link in navbar
     # dogs index also has a filter option for results ordering => recently update, highest rating
     # maybe even a search feature?
