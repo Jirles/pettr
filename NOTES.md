@@ -26,11 +26,12 @@ MAYBE LATER? MAYBE NOT...
 - Users can only see their profile (for now)
 - You can view dog profiles too if they exist dogs/3
 ## LATER
-- Add [User Name]'s Profile link to navbar and `set_current_user` to application controller
+- Add [User Name]'s Profile link to navbar
 - Validations for form submissions
 - fix so it accepts dog_attributes=
 
 ## FUTURE FUTURE
+- Images 
 - Interactive petting form that only shows certain fields (name, breed) if a profile isn't selected
 - Slide bar to register pet rating instead of radio buttons
 
@@ -44,7 +45,7 @@ MAYBE LATER? MAYBE NOT...
   - names need to be present
 [x] at least one scope method (filter for dog index)
 - User
-    - favorite dogs: rank by rating
+    - favorite dogs: rank by rating, most recent
 - Pettings
     - dog name
     - User

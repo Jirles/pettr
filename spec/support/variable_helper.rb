@@ -9,38 +9,38 @@ module VariableHelper
         :password => 'password'
       )
 
-        @lightning = User.create(
-          :first_name => "Lightning",
-          :last_name => "McQueen",
-          :email => "go_fast@cars.com",
-          :password => 'fastest'
-        )
+    @lightning = User.create(
+      :first_name => "Lightning",
+      :last_name => "McQueen",
+      :email => "go_fast@cars.com",
+      :password => 'fastest'
+    )
 
-        @linda = User.create(
-          :first_name => "Linda",
-          :last_name => "Belcher",
-          :email => "lbelcher@bobsburgers.com",
-          :password => 'bestmomever'
-        )
+    @linda = User.create(
+      :first_name => "Linda",
+      :last_name => "Belcher",
+      :email => "lbelcher@bobsburgers.com",
+      :password => 'bestmomever'
+    )
 
     #dogs
-        @bandit = Dog.create(
-          :name => "Bandit",
-          :breed => 'Bulldog',
-          :age => 4,
-          :city => 'Durham, North Carolina',
-          :bio => "Likes adventures, bones, and naps",
-          :owner_id => @jquest.id,
-          :user_rating => 4.5
-        )
+    @bandit = Dog.create(
+      :name => "Bandit",
+      :breed => 'Bulldog',
+      :age => 4,
+      :city => 'Durham, North Carolina',
+      :bio => "Likes adventures, bones, and naps",
+      :owner_id => @jquest.id,
+      :user_rating => 4.5
+    )
 
-      @whitefang = Dog.create(
-        :name => "White Fang",
-        :breed => "Siberian Husky",
-        :age => 2,
-        :city => "Juneau, Alaska",
-        :bio => "Enjoys the call of the wild"
-      )
+    @whitefang = Dog.create(
+      :name => "White Fang",
+      :breed => "Siberian Husky",
+      :age => 2,
+      :city => "Juneau, Alaska",
+      :bio => "Enjoys the call of the wild"
+    )
 
     #pettings
     @lightning_bandit = Petting.create(
