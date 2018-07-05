@@ -16,4 +16,12 @@ module ApplicationHelper
     end
   end
 
+  def set_navbar_options(current_user)
+    if current_user
+      render partial: 'layouts/loggedin_navbar', locals: {current_user: current_user}
+    else
+      render 'layouts/not_loggedin_navbar'
+    end
+  end
+
 end

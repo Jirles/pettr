@@ -31,7 +31,9 @@ MAYBE LATER? MAYBE NOT...
 - fix so it accepts dog_attributes=
 
 ## FUTURE FUTURE
-- Images 
+- Images
+- Dog model >> Animal model
+- Drop down menu for animals you manage so there's only one link in navbar
 - Interactive petting form that only shows certain fields (name, breed) if a profile isn't selected
 - Slide bar to register pet rating instead of radio buttons
 

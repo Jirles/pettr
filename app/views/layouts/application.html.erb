@@ -10,9 +10,8 @@
   </head>
 
   <body>
-    <%= link_to "SignUp", signup_path %>
-    <%= link_to "LogIn", login_path %>
-    <%= link_to "LogOut", logout_path, method: :delete %>
+    <%= link_to "Home", root_path %>
+    <%= set_navbar_options(@current_user) %>
     <%= display_flash_notices %>
     <%= yield %>
   </body>
