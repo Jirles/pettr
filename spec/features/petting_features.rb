@@ -52,7 +52,7 @@ RSpec.describe 'Petting Features', :type => :feature do
       signup_as_bob_belcher
     end
     it 'can only be accessed if you are logged in' do
-      click_button "LogOut"
+      click_link "LogOut"
 
       visit new_petting_path
       expect(page.current_path).to eq(root_path)
@@ -63,7 +63,7 @@ RSpec.describe 'Petting Features', :type => :feature do
 
       expect(page).to have_selector('form')
       expect(page).to have_content("Select a dog's Pettr profile:")
-      expect(page).to have_field(:petting_pet_rating_0)
+      expect(page).to have_field(:petting_pet_rating_00) #=> value is a float, so this means 0.0
       expect(page).to have_field(:petting_dog_id)
       expect(page).to have_button("Pettr")
     end
@@ -72,7 +72,7 @@ RSpec.describe 'Petting Features', :type => :feature do
       visit new_petting_path
       select("White Fang", from: :petting_dog_id)
       fill_in(:petting_location, with: "Bob's Burgers Restaurant")
-      choose(:petting_pet_rating_3)
+      choose(:petting_pet_rating_30) #=> 3.0
       fill_in(:petting_description, with: "Not sure where this dog came from, but Louise liked it.")
       click_button "Pettr"
 
@@ -87,7 +87,7 @@ RSpec.describe 'Petting Features', :type => :feature do
       fill_in(:petting_name, with: "Blue")
       fill_in(:petting_breed, with: "Border Collie")
       fill_in(:petting_location, with: "Lore City, Ohio")
-      choose(:petting_pet_rating_5)
+      choose(:petting_pet_rating_50) #=> 5.0
       fill_in(:petting_description, with: "Best Dawg Ever.")
       click_button "Pettr"
 
@@ -101,7 +101,7 @@ RSpec.describe 'Petting Features', :type => :feature do
       fill_in(:petting_name, with: "Blue")
       fill_in(:petting_breed, with: "Border Collie")
       fill_in(:petting_location, with: "Lore City, Ohio")
-      choose(:petting_pet_rating_5)
+      choose(:petting_pet_rating_50) #=> 5.0
       fill_in(:petting_description, with: "Best Dawg Ever.")
       click_button "Pettr"
 
@@ -114,16 +114,16 @@ RSpec.describe 'Petting Features', :type => :feature do
     before do
       @louise = create_louise_belcher
       login_as_louise
-      @louise_blue = Petting.create(user_id: @louise.id, name: "Blue", breed: "Border Collie", location: "Lre City, Ohio", pet_rating: 4, description: "A very pretty pup")
+      @louise_blue = Petting.create(user_id: @louise.id, name: "Blue", breed: "Border Collie", location: "Lre City, Ohio", pet_rating: 4.0, description: "A very pretty pup")
     end
 
     it 'has a form with pre-filled information' do
       visit edit_petting_path(@louise_blue)
 
       expect(page).to have_selector('form')
-      expect(page).to have_selector('input#petting_name', text: "Blue")
-      expect(page).to have_checked_field(:petting_pet_rating_4)
-      expect(page).to have_selector('input#petting_description', text: "A very pretty pup")
+      expect(page).to have_css('input[value="Blue"]')
+      expect(page).to have_checked_field(:petting_pet_rating_40) #=> 4.0
+      expect(page).to have_css('#petting_description', text: "A very pretty pup")
     end
 
     it 'can only be accessed by the user who owns the petting involved' do
@@ -153,7 +153,7 @@ RSpec.describe 'Petting Features', :type => :feature do
     before do
       @louise = create_louise_belcher
       login_as_louise
-      @louise_blue = Petting.create(user_id: @louise.id, name: "Blue", breed: "Border Collie", location: "Lre City, Ohio", pet_rating: 4, description: "A very pretty pup")
+      @louise_blue = Petting.create(user_id: @louise.id, name: "Blue", breed: "Border Collie", location: "Lre City, Ohio", pet_rating: 4.0, description: "A very pretty pup")
     end
 
     it 'can only be triggered by a pettings owner' do

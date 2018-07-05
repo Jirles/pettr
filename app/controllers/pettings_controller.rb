@@ -1,6 +1,6 @@
 require 'byebug'
 class PettingsController < ApplicationController
-  before_action :require_login, expect: [:index]
+  before_action :require_login, except: [:index]
 
   def index
     @pettings = Petting.all
@@ -31,7 +31,7 @@ class PettingsController < ApplicationController
   end
 
   def update
-    
+
   end
 
   private

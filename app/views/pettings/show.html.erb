@@ -11,9 +11,7 @@
 <!--
 <%= edit_delete_options %>
 -->
-<% if @petting.user = @current_user %>
+<% if @petting.user == @current_user %>
   <%= link_to "Edit", edit_petting_path(@petting) %>
-  <%= form_tag petting_path(@petting), method: "delete" do %>
-    <%= submit_tag "Delete" %>
-  <% end %>
+  <%= link_to "Delete", @petting, method: :delete, data: { confirm: "Are you sure you want to delete this record?" } %>
 <% end %>

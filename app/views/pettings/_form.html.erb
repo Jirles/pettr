@@ -17,7 +17,7 @@
   <br>
   <% 6.times do |i| %>
     <%= f.label :pet_rating, i %>
-    <%= f.radio_button :pet_rating, i %>
+    <%= f.radio_button :pet_rating, i.to_f %>
   <% end %>
   <br><br>
   <%= f.label :description %>
