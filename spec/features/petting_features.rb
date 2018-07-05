@@ -55,7 +55,7 @@ RSpec.describe 'Petting Features', :type => :feature do
       click_link "LogOut"
 
       visit new_petting_path
-      expect(page.current_path).to eq(root_path)
+      expect(page.current_path).to eq(login_path)
     end
 
     it 'has a form with petting fields' do
@@ -144,7 +144,7 @@ RSpec.describe 'Petting Features', :type => :feature do
 
     it 'can be accessed by an Edit button on the pettings show page' do
       visit petting_path(@louise_blue)
-      click_button "Edit"
+      click_link "Edit"
       expect(page.current_path).to eq(edit_petting_path(@louise_blue))
     end
   end

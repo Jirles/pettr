@@ -7,7 +7,7 @@ class PettingsController < ApplicationController
   end
 
   def show
-    @petting = Petting.find(params[:id])
+    set_petting
   end
 
   def new
@@ -26,19 +26,33 @@ class PettingsController < ApplicationController
   end
 
   def edit
-    @petting = Petting.find(params[:id])
+    set_petting
     owner_permissions_check(@petting.user_id) #=> redirects to root path if check fails
     @dogs = Dog.all
   end
 
   def update
-
+    set_petting
+    owner_permissions_check(@petting.user_id) #=> redirects to root path if check fails
+    @petting.update(petting_params) #=> updates fields
+    @petting.set_attributes_if_dog_exists #=> takes care of dog attributes if a profile is chosen/changed
+    if @petting.save
+      flash[:notice] = "Update successful!"
+      redirect_to petting_path(@petting)
+    else
+      flash[:notice] = "Record failed to update."
+      redirect_to edit_petting_path(@petting)
+    end
   end
 
   private
 
   def petting_params
     params.require(:petting).permit(:location, :pet_rating, :description, :dog_id, :name, :breed)
+  end
+
+  def set_petting
+    @petting = Petting.find(params[:id])
   end
 
 end

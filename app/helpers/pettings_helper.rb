@@ -10,8 +10,11 @@ module PettingsHelper
 
   def edit_delete_options(petting, current_user)
     if petting.user == current_user
-      link_to "Edit", edit_petting_path(petting)
-      link_to "Delete", petting, method: :delete, data: { confirm: "Are you sure you want to delete this record?" }
+      capture do
+        concat link_to("Edit", edit_petting_path(petting))
+        concat ' '
+        concat link_to("Delete", petting, method: :delete, data: { confirm: "Are you sure you want to delete this record?" })
+      end
     end
   end
 

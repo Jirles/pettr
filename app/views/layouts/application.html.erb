@@ -13,6 +13,7 @@
     <%= link_to "SignUp", signup_path %>
     <%= link_to "LogIn", login_path %>
     <%= link_to "LogOut", logout_path, method: :delete %>
+    <%= display_flash_notices %>
     <%= yield %>
   </body>
 </html>
