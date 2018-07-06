@@ -155,6 +155,28 @@ RSpec.describe 'Dog Features', :type => :feature do
       expect(page).to have_content("Name can't be blank")
       expect(page).to have_selector("form")
     end
+
+    it "will raise an error if a bio is too long" do
+      visit new_owner_dog_path
+      fill_in(:dog_breed, with: "Mutt")
+      fill_in(:dog_age, with: 2)
+      fill_in(:dog_city, with: "Winston Salem, NC")
+      fill_in(:dog_bio, with: "Doggo ipsum adorable doggo maximum borkdrive. Boof very hand that feed shibe vvv lotsa pats, blop shoober. Wow such tempt doing me a frighten I am bekom fat extremely cuuuuuute wow very biscit ur givin me a spook, puggo porgo snoot. Heckin shoober waggy wags h*ck very taste wow waggy wags borking doggo, smol woofer h*ck fat boi woofer, dat tungg tho pats doing me a frighten ur givin me a spook most angery pupper I have ever seen. Lotsa pats tungg doggo long water shoob, smol borking doggo with a long snoot for pats pats. Clouds borking doggo doing me a frighten maximum borkdrive adorable doggo, super chub very good spot thicc puggo, he made many woofs borking doggo heckin good boys.")
+      click_button "Create Profile"
+
+      expect(page).to have_content("500 characters is the maximum allowed for a bio")
+      expect(page).to have_selector("form")
+    end
+
+    describe 'owner dog edit page' do
+      before do
+        visit login_path
+        fill_in(:session_email, with: "jmiller@london.com")
+        fill_in(:session_password, with: 'password')
+        click_button "LogIn"
+        visit owner_dog_path(@buck)
+      end
+    end
   end
 
   # dogs index & show => public - dogs index should have link in navbar

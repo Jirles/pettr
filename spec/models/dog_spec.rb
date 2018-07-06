@@ -15,6 +15,12 @@ RSpec.describe Dog, :type => :model do
     expect(bad_dog).to be_invalid
   end
 
+  it 'does not validate if the bio is over 500 chars' do
+    long_winded = Dog.create(name: "Fido", breed: "Bull Terrier", age: 1.5, city: "Hollywood, CA", bio: "Doggo ipsum adorable doggo maximum borkdrive. Boof very hand that feed shibe vvv lotsa pats, blop shoober. Wow such tempt doing me a frighten I am bekom fat extremely cuuuuuute wow very biscit ur givin me a spook, puggo porgo snoot. Heckin shoober waggy wags h*ck very taste wow waggy wags borking doggo, smol woofer h*ck fat boi woofer, dat tungg tho pats doing me a frighten ur givin me a spook most angery pupper I have ever seen. Lotsa pats tungg doggo long water shoob, smol borking doggo with a long snoot for pats pats. Clouds borking doggo doing me a frighten maximum borkdrive adorable doggo, super chub very good spot thicc puggo, he made many woofs borking doggo heckin good boys.") #=> 692 characters
+
+    expect(long_winded).to be_invalid
+  end
+
   it 'has an attribute user_rating that defaults to 5' do
     expect(@buck.user_rating).to eq(5.00)
   end
