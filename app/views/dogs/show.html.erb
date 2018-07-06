@@ -1,9 +1,9 @@
 <div class="container">
-  <div class="dog-profile-data">
+  <div class="dog-profile-card">
     <h1><%= @dog.name %></h1>
     <h3><%= @dog.city %></h3>
     <span class="dog-profile-span"><%= @dog.breed %></span><br>
-    <span class="dog-profile-span"><%= @dog.age %></span><br>
+    <span class="dog-profile-span"><%= @dog.age %> years old </span><br>
     <span class="dog-profile-span"><%= @dog.bio %></span><br>
     <span class="dog-profile-span"><%= display_dog_rating(@dog) %></span><br>
   </div>

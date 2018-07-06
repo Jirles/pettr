@@ -42,11 +42,12 @@ RSpec.describe 'Dog Features', :type => :feature do
   end
 
   describe 'show page' do
-    before do
-      signup_as_bob_belcher
-    end
 
     context 'accessed by non-affiliated user' do
+      before do
+        signup_as_bob_belcher
+      end
+
       it 'shows a dogs information and the pettings it has been involved in if any' do
         visit dog_path(@bandit)
 
@@ -61,6 +62,26 @@ RSpec.describe 'Dog Features', :type => :feature do
         click_link "BEST DOG EVAAA!!!!"
 
         expect(page.current_path).to eq(petting_path(@linda_bandit))
+      end
+
+      it 'does not display edit or delete options' do
+        visit dog_path(@buck)
+
+        expect(page).not_to have_link("Edit")
+        expect(page).not_to have_link("Delete")
+      end
+
+      it 'does not allow an unaffiliated user to navigate to the edit page' do
+
+      end
+    end
+
+    context 'accessed by owner' do
+      before do
+        visit login_path
+        fill_in(:email, with: "jquest@cartoons.com")
+        fill_in(:password, with: "password")
+        click_button "LogIn"
       end
     end
   end
