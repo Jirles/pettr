@@ -12,6 +12,10 @@ class User < ActiveRecord::Base
     self.first_name + " " + self.last_name
   end
 
+  def has_pets?
+    !!self.pet_accounts
+  end
+
   def pets
     self.pet_accounts.collect{ |account| Dog.find(account.dog_id) }
   end

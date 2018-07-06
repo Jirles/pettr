@@ -8,7 +8,6 @@ class Owner::DogsController < ApplicationController
   end
 
   def edit
-
   end
 
   private
@@ -18,7 +17,7 @@ class Owner::DogsController < ApplicationController
   end
 
   def authenticate_owner
-    if @dog.owner_id != @current_user.id
+    unless @dog.owner == @current_user
       flash[:notice] = "Sorry, but you do not have access to that page."
       redirect_to dogs_path
     end

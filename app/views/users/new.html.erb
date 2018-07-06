@@ -1,6 +1,6 @@
 <h1>SignUp</h1>
 
-<%= display_errors %>
+<%= display_errors(@errors) %>
 
 <%= form_for(@user, url: signup_path) do |f| %>
   <%= f.label :first_name %>

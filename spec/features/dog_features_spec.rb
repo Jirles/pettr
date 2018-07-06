@@ -103,7 +103,7 @@ RSpec.describe 'Dog Features', :type => :feature do
 
       it 'can be accessed directly from a users profile' do
         visit user_path(@jquest)
-        click_link "Bandit's Profile"
+        click_link "Bandit"
 
         expect(page.current_path).to eq(owner_dog_path(@bandit))
       end
@@ -118,7 +118,6 @@ RSpec.describe 'Dog Features', :type => :feature do
   end
   describe 'owner dog edit page' do
     before do
-
     end
   end
 

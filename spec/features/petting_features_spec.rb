@@ -29,7 +29,7 @@ RSpec.describe 'Petting Features', :type => :feature do
       visit root_path
       click_link "Seemed a little wild..."
 
-      expect(page.current_path).to eq(petting_path(@jquest_whitefang))
+      expect(page.current_path).to eq(petting_path(@jquest_buck))
     end
   end
 

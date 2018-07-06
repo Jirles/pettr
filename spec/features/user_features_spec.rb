@@ -137,10 +137,10 @@ RSpec.describe 'User Features', :type => :feature do
     end
 
     it 'cannot be seen if a user is logged out' do
-      click_button 'LogOut'
+      click_link 'LogOut'
       visit '/users/1'
 
-      expect(page.current_path).to eq(root_path)
+      expect(page.current_path).to eq(login_path)
     end
   end
 
@@ -151,7 +151,7 @@ RSpec.describe 'User Features', :type => :feature do
     end
 
     it 'logs the user out and redirects them to the homepage' do
-      click_button "LogOut"
+      click_link "LogOut"
 
       expect(page.current_path).to eq(root_path)
     end

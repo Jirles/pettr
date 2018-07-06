@@ -13,7 +13,7 @@ class DogsController < ApplicationController
   private
 
   def redirect_to_owner_dog_path_if_owner
-    redirect_to owner_dog_path(@dog) if @dog.owner_id == @current_user.id
+    redirect_to owner_dog_path(@dog) if @dog.owner == @current_user
   end
 
 end

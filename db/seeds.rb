@@ -41,18 +41,20 @@ jquest = User.create(
       :age => 4,
       :city => 'Durham, North Carolina',
       :bio => "Likes adventures, bones, and naps",
-      :owner_id => jquest.id,
       :user_rating => 4.5
     )
+
+    PetAccount.create(:user_id => jquest.id, :dog_id => bandit.id)
 
   buck = Dog.create(
     :name => "Buck",
     :breed => "Siberian Husky",
     :age => 2,
     :city => "Juneau, Alaska",
-    :owner_id => judge.id,
     :bio => "Enjoys the call of the wild"
   )
+
+  PetAccount.create(:user_id => judge.id, :dog_id => buck.id)
 
 #pettings
 lightning_bandit = Petting.create(
