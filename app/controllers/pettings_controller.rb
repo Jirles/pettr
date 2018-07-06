@@ -11,6 +11,7 @@ class PettingsController < ApplicationController
   end
 
   def new
+    @errors = nil
     @petting = Petting.new
     @dogs = Dog.all
   end
@@ -21,7 +22,10 @@ class PettingsController < ApplicationController
     if petting.save
       redirect_to petting_path(petting)
     else
-      redirect_to new_petting_path
+      @errors = petting.errors
+      @petting = Petting.new
+      @dogs = Dog.all
+      render :new
     end
   end
 
@@ -29,6 +33,7 @@ class PettingsController < ApplicationController
     set_petting
     owner_permissions_check(@petting.user_id) #=> redirects to root path if check fails
     @dogs = Dog.all
+    @errors = nil
   end
 
   def update
@@ -40,8 +45,9 @@ class PettingsController < ApplicationController
       flash[:notice] = "Update successful!"
       redirect_to petting_path(@petting)
     else
-      flash[:notice] = "Record failed to update."
-      redirect_to edit_petting_path(@petting)
+      @errors = @petting.errors
+      @dogs = Dog.all
+      render :edit
     end
   end
 

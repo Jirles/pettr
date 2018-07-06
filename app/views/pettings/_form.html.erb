@@ -1,3 +1,5 @@
+<%= display_errors(errors) %>
+
 <%= form_for(petting) do |f| %>
   <%= f.label :dog_id, "Select a dog's Pettr profile: "%>
   <%= f.collection_select(:dog_id, dogs, :id, :name, prompt: true, include_blank: "Fill out by hand") %>

@@ -108,6 +108,18 @@ RSpec.describe 'Petting Features', :type => :feature do
       expect(page).to have_content("Dog: Bandit")
       expect(page).to have_content("Breed: Bulldog")
     end
+
+    it 'will not be create a new dog unless a name or a profile is chosen' do
+      visit new_petting_path
+      fill_in(:petting_breed, with: "Border Collie")
+      fill_in(:petting_location, with: "Lore City, Ohio")
+      choose(:petting_pet_rating_50) #=> 5.0
+      fill_in(:petting_description, with: "Best Dawg Ever.")
+      click_button "Pettr"
+
+      expect(page).to have_content("Pettr profile and name fields can't both be blank.")
+      expect(page).to have_selector('form')
+    end
   end
 
   context 'edit page' do
@@ -146,6 +158,18 @@ RSpec.describe 'Petting Features', :type => :feature do
       visit petting_path(@louise_blue)
       click_link "Edit"
       expect(page.current_path).to eq(edit_petting_path(@louise_blue))
+    end
+
+    it 'will not update a profile if neither a dog_id nor a name are submitted' do
+      visit edit_petting_path(@louise_blue)
+      fill_in(:petting_name, with: "")
+      fill_in(:petting_location, with: "Lore City, Ohio")
+      choose(:petting_pet_rating_50) #=> 5.0
+      fill_in(:petting_description, with: "Best Dawg Ever.")
+      click_button "Pettr"
+
+      expect(page).to have_content("Pettr profile and name fields can't both be blank.")
+      expect(page).to have_selector('form')
     end
   end
 

@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   skip_before_action :require_login, only: [:new, :create]
-  
+
   def new
   end
 
@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
       session[:user_id] = @user.id
       redirect_to user_path(@user)
     else
-      flash[:notice] = "Email/password can't be blank"
+      flash[:notice] = "Email/password can't be blank."
       render :new
     end
   end

@@ -10,22 +10,20 @@
 - Dog - name:present, breed, age, city,  user_rating:integer, owner_id (has_one :pet_account)
 	- child_friendly:boolean, cat_friendly:boolean, dog_friendly:boolean (maybe later)
 - Petting - user_id, dog_id:optional, name:present, breed, location, pet_rating:integer, description
-- PetAccount - dog_id, user_id
+- PetAccount - dog_id, user_id (owner-pet relationship)
 
 MAYBE LATER? MAYBE NOT...
-- OwnerAccount - user_id, preferences (belongs_to :user) (:user has_one :user_account) (has_many :pet_accounts)
-- PetAccount dog_id, user_account_id, pet_instagram, pet_bio (belongs_to :dog) (:dog has_one :pet_account) (belongs_to :owner_account)
+-  preferences for users
 - SocialMediaAccount
+- nested pettings? users/4/pettings/3
 
 ## INTERFACE & NESTED RESOURCES
 - Owner module: users that own a dog and have creating/editing/deleting permissions
-    - owner/4/pets/1
+    - owner/dogs/1
     - All others just have view permissions : dogs/5
-- Also Pettings: you can view your pettings
-    - users/4/pettings/3
 - People can also view all interactions: /pettings & /pettings/3 but cannot edit/delete
-- Users can only see their profile (for now)
 - You can view dog profiles too if they exist dogs/3
+
 ## LATER
 - Add [User Name]'s Profile link to navbar
 - Validations for form submissions (including error messages)
