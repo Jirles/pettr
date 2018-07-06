@@ -100,6 +100,13 @@ RSpec.describe 'Dog Features', :type => :feature do
 
         expect(page.current_path).to eq(owner_dog_path(@bandit))
       end
+
+      it 'has links to edit and delete the dogs profile' do
+        visit owner_dog_path(@bandit)
+
+        expect(page).to have_link("Edit Bandit's Profile")
+        expect(page).to have_link("Delete Bandit's Profile")
+      end
     end
   end
 

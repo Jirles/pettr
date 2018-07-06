@@ -1,9 +1,14 @@
 class Owner::DogsController < ApplicationController
+  before_action :set_dog, :authenticate_owner
+  skip_before_action :set_dog, only: [:new, :create]
+  skip_before_action :authenticate_owner, only: [:new, :create]
 
   def show
-    set_dog
-    authenticate_owner
     @pettings = @dog.pettings
+  end
+
+  def edit
+
   end
 
   private
@@ -16,6 +21,6 @@ class Owner::DogsController < ApplicationController
     if @dog.owner_id != @current_user.id
       flash[:notice] = "Sorry, but you do not have access to that page."
       redirect_to dogs_path
-    end 
+    end
   end
 end
