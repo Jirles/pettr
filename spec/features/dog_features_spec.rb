@@ -116,8 +116,19 @@ RSpec.describe 'Dog Features', :type => :feature do
       end
     end
   end
-  describe 'owner dog edit page' do
+  describe 'owner dog new page' do
     before do
+      visit login_path
+      fill_in(:session_email, with: "jmiller@london.com")
+      fill_in(:session_password, with: 'password')
+      click_button "LogIn"
+    end
+
+    it 'can be accessed from a users profile page' do
+      visit user_path(@judge)
+      click_link "Create a Pettr Pet Profile"
+
+      expect(page.current_path).to eq(new_owner_dog_path)
     end
   end
 

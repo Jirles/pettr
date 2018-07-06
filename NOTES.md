@@ -61,7 +61,7 @@ MAYBE LATER? MAYBE NOT...
 [x] use omniauth, at least one outside source (twitter and/or fb)
   - Twitter (later), Facebook, Instagram if possible
 [x] nested resources with appropriate RESTful routes
-  - Dog profiles should be nested under users (pets)
+  - Dog profiles should be nested under users (owner)
 [x] a form related to the parent resource^^
   - creating a pet profile  
 [x] forms must display validation errors - easy

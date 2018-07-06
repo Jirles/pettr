@@ -1,0 +1,20 @@
+<%= display_errors(errors) %>
+
+<%= form_for(dog) do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <br>
+  <%= f.label :breed %>
+  <%= f.text_field :breed %>
+  <br>
+  <%= f.label :age %>
+  <%= f.number_field :age %>
+  <br>
+  <%= f.label :city, "Hometown" %>
+  <%= f.text_field :city %>
+  <br>
+  <%= f.label :bio %>
+  <%= f.text_area :bio %>
+  <br><br>
+  <%= f.submit "#{button_text}" %>
+<% end %>

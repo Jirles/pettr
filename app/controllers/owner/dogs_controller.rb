@@ -7,7 +7,29 @@ class Owner::DogsController < ApplicationController
     @pettings = @dog.pettings
   end
 
+  def new
+    @dog = Dog.new
+    @errors = nil
+  end
+
+  def create
+    @dog = Dog.create(pet_params)
+    if @dog.valid?
+      PetAccount.create(:user_id => @current_user, :dog_id => @dog.id)
+      redirect_to owner_dog_path(@dog)
+    else
+      @errors = @dog.errors
+      @dog = Dog.new
+      render :new
+    end
+  end
+
   def edit
+    @errors = nil
+  end
+
+  def update
+
   end
 
   private
@@ -21,5 +43,9 @@ class Owner::DogsController < ApplicationController
       flash[:notice] = "Sorry, but you do not have access to that page."
       redirect_to dogs_path
     end
+  end
+
+  def dog_params
+    params.require(:dog).permit(:name, :breed, :age, :city, :bio)
   end
 end
