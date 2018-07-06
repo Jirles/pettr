@@ -4,7 +4,7 @@ class Dog < ActiveRecord::Base
   has_one :pet_account
 
   validates :name, presence: true
-
+  
   def owner
     User.find(self.pet_account.user_id)
   end
