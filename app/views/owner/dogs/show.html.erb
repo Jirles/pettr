@@ -1,0 +1,8 @@
+<%= render partial: 'dogs/profile_view', locals: {dog: @dog, pettings: @pettings}%>
+
+<div class="edit-delete-container">
+  <section id="owner-editing-options">
+    <%= link_to "Edit #{@dog.name}'s personal data", edit_owner_dog_path(@dog) %>
+    <%= link_to "Delete this profile", @dog, method: :delete, data: { confirm: "Are you sure you want to delete this profile?" }%>
+  </section>
+</div>

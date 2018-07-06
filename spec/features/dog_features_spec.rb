@@ -71,17 +71,34 @@ RSpec.describe 'Dog Features', :type => :feature do
         expect(page).not_to have_link("Delete")
       end
 
-      it 'does not allow an unaffiliated user to navigate to the owners show page' do
+      it 'only lets logged in users access it' do
+        click_link "LogOut"
+        visit dog_path(@buck)
 
+        expect(page.current_path).to eq(login_path)
+        expect(page).to have_content("Please login or signup to view more content.")
+      end
+
+      it 'does not allow an unaffiliated user to navigate to the owners show page' do
+        visit owner_dog_path(@buck)
+
+        expect(page).to have_content("Sorry, but you do not have access to that page.")
+        expect(page.current_path).to eq(dogs_path)
       end
     end
 
     context 'accessed by owner' do
       before do
         visit login_path
-        fill_in(:email, with: "jquest@cartoons.com")
-        fill_in(:password, with: "password")
+        fill_in(:session_email, with: "jquest@cartoons.com")
+        fill_in(:session_password, with: "password")
         click_button "LogIn"
+      end
+
+      it 'redirects owner to owner show page' do
+        visit dog_path(@bandit)
+
+        expect(page.current_path).to eq(owner_dog_path(@bandit))
       end
     end
   end

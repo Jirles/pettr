@@ -27,8 +27,11 @@ MAYBE LATER? MAYBE NOT...
 - You can view dog profiles too if they exist dogs/3
 ## LATER
 - Add [User Name]'s Profile link to navbar
-- Validations for form submissions
+- Validations for form submissions (including error messages)
 - fix so it accepts dog_attributes=
+- error pages
+	- this dog no longer exists (if an owner deletes a dog's profile)
+	- you can't do that (don't have permissions)
 
 ## FUTURE FUTURE
 - Images
