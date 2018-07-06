@@ -3,6 +3,10 @@ Rails.application.routes.draw do
 
   resources :pettings
   resources :dogs, only: [:index, :show]
+  #owner namespace
+   namespace :owner do
+     resources :dogs, only: [:show, :new, :create, :edit, :update, :destroy]
+   end
   resources :users, only: [:show]
   #signup
   get '/signup' => 'users#new'

@@ -71,7 +71,7 @@ RSpec.describe 'Dog Features', :type => :feature do
         expect(page).not_to have_link("Delete")
       end
 
-      it 'does not allow an unaffiliated user to navigate to the edit page' do
+      it 'does not allow an unaffiliated user to navigate to the owners show page' do
 
       end
     end

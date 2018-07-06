@@ -1,6 +1,6 @@
 require 'byebug'
 class PettingsController < ApplicationController
-  before_action :require_login, except: [:index]
+  skip_before_action :require_login, only: [:index]
 
   def index
     @pettings = Petting.all
@@ -48,7 +48,7 @@ class PettingsController < ApplicationController
   def destroy
     set_petting
     owner_permissions_check(@petting.user_id) #=> redirects to root path if check fails
-    
+
     Petting.find(@petting.id).destroy
     flash[:notice] = "Record successfully deleted."
     redirect_to root_path

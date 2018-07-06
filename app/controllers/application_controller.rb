@@ -1,8 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_action :set_current_user
-
-  def home
-  end
+  before_action :set_current_user, :require_login
 
   private
   def logged_in?
