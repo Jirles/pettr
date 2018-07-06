@@ -130,6 +130,19 @@ RSpec.describe 'Dog Features', :type => :feature do
 
       expect(page.current_path).to eq(new_owner_dog_path)
     end
+
+    it 'creates a new dog and a new pet account' do
+      visit new_owner_dog_path
+      fill_in(:dog_name, with: "Spot")
+      fill_in(:dog_breed, with: "Mutt")
+      fill_in(:dog_age, with: 2)
+      fill_in(:dog_city, with: "Winston Salem, NC")
+      fill_in(:dog_bio, with: "Spot may be the runt of the litter but he's big on heart!")
+      click_button "Create Profile"
+
+      expect(Dog.last.name).to eq("Spot")
+      expect(PetAccount.all.size).to eq(3)
+    end
   end
 
   # dogs index & show => public - dogs index should have link in navbar

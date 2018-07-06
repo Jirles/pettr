@@ -1,6 +1,6 @@
 <%= display_errors(errors) %>
 
-<%= form_for(dog) do |f| %>
+<%= form_for(dog, url: {controller: "owner/dogs", action: action}) do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %>
   <br>

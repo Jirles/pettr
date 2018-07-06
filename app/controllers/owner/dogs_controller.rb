@@ -13,9 +13,9 @@ class Owner::DogsController < ApplicationController
   end
 
   def create
-    @dog = Dog.create(pet_params)
+    @dog = Dog.create(dog_params)
     if @dog.valid?
-      PetAccount.create(:user_id => @current_user, :dog_id => @dog.id)
+      PetAccount.create(:user_id => @current_user.id, :dog_id => @dog.id)
       redirect_to owner_dog_path(@dog)
     else
       @errors = @dog.errors

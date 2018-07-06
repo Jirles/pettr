@@ -1,4 +1,4 @@
-<h1>Create a Pet Pettr Profile</h1>
-<p>yay alliteration!</p>
+<h1>Create a Pettr Pet Profile</h1>
+<span>yay alliteration!</span><br><br>
 
-<%= render partial: 'form', locals: {dog: @dog, button_text: "Create Profile", errors: @errors}%>
+<%= render partial: 'form', locals: {dog: @dog, button_text: "Create Profile", action: :create, errors: @errors}%>
