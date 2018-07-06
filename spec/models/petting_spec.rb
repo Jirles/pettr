@@ -10,7 +10,7 @@ describe 'Petting Model' do
   end
 
   it 'must have a user_id' do
-    bad_pet = Petting.create(:dog_id => @whitefang.id, :pet_rating => 4.5, :location => "Fullsteam Brewery")
+    bad_pet = Petting.create(:dog_id => @buck.id, :pet_rating => 4.5, :location => "Fullsteam Brewery")
     expect(bad_pet).to be_invalid
   end
 

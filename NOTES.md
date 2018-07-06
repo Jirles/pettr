@@ -10,10 +10,11 @@
 - Dog - name:present, breed, age, city,  user_rating:integer, owner_id (has_one :pet_account)
 	- child_friendly:boolean, cat_friendly:boolean, dog_friendly:boolean (maybe later)
 - Petting - user_id, dog_id:optional, name:present, breed, location, pet_rating:integer, description
+- PetAccount - dog_id, user_id
 
 MAYBE LATER? MAYBE NOT...
-- OwnerAccount - user_id (belongs_to :user) (:user has_one :owner_account)
-- PetAccount dog_id, pet_instagram, pet_bio (belongs_to :dog) (:dog has_one :pet_account)
+- OwnerAccount - user_id, preferences (belongs_to :user) (:user has_one :user_account) (has_many :pet_accounts)
+- PetAccount dog_id, user_account_id, pet_instagram, pet_bio (belongs_to :dog) (:dog has_one :pet_account) (belongs_to :owner_account)
 - SocialMediaAccount
 
 ## INTERFACE & NESTED RESOURCES

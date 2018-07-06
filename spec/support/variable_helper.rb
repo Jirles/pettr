@@ -37,9 +37,10 @@ module VariableHelper
       :age => 4,
       :city => 'Durham, North Carolina',
       :bio => "Likes adventures, bones, and naps",
-      :owner_id => @jquest.id,
       :user_rating => 4.5
     )
+
+    @bandit_account = PetAccount.create(:user_id => @jquest.id, :dog_id => @bandit.id)
 
     @buck = Dog.create(
       :name => "Buck",
@@ -47,8 +48,9 @@ module VariableHelper
       :age => 2,
       :city => "Juneau, Alaska",
       :bio => "Enjoys the call of the wild",
-      :owner_id => @judge.id
     )
+
+    @buck_account = PetAccount.create(:user_id => @judge.id, :dog_id => @buck.id)
 
     #pettings
     @lightning_bandit = Petting.create(

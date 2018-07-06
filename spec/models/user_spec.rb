@@ -18,7 +18,7 @@ describe 'User Model' do
 
   it 'has many dogs through pettings' do
     expect(@linda.pettings.size).to eq(2)
-    expect(@linda.dogs).to include(@whitefang)
+    expect(@linda.dogs).to include(@buck)
   end
 
   it 'has a full_name method that returns a users full name' do

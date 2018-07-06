@@ -101,6 +101,13 @@ RSpec.describe 'Dog Features', :type => :feature do
         expect(page.current_path).to eq(owner_dog_path(@bandit))
       end
 
+      it 'can be accessed directly from a users profile' do
+        visit user_path(@jquest)
+        click_link "Bandit's Profile"
+
+        expect(page.current_path).to eq(owner_dog_path(@bandit))
+      end
+
       it 'has links to edit and delete the dogs profile' do
         visit owner_dog_path(@bandit)
 
@@ -109,7 +116,11 @@ RSpec.describe 'Dog Features', :type => :feature do
       end
     end
   end
+  describe 'owner dog edit page' do
+    before do
 
+    end
+  end
 
   # dogs index & show => public - dogs index should have link in navbar
     # dogs index also has a filter option for results ordering => recently update, highest rating
