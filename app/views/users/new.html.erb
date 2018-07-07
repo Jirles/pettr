@@ -1,3 +1,14 @@
+<% content_for :fb_sdk do %>
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0&appId=1583011238493334&autoLogAppEvents=1';
+  fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+<% end %>
+
 <h1>SignUp</h1>
 
 <%= display_errors(@errors) %>
@@ -17,3 +28,6 @@
   <br><br>
   <%= f.submit "SignUp" %>
 <% end %>
+
+<p>Or</p>
+<div class="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>

@@ -10,6 +10,7 @@
   </head>
 
   <body>
+    <%= yield :fb_sdk %>
     <%= link_to "Home", root_path %>
     <%= set_navbar_options(@current_user) %>
     <%= display_flash_notices %>
