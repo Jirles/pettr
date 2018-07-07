@@ -29,7 +29,13 @@ class Owner::DogsController < ApplicationController
   end
 
   def update
-
+    if @dog.update(dog_params)
+      flash[:notice] = "Profile successfully updated!"
+      redirect_to owner_dog_path(@dog)
+    else
+      @errors = @dog.errors
+      render :new
+    end
   end
 
   private

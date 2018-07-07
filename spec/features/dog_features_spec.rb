@@ -174,7 +174,29 @@ RSpec.describe 'Dog Features', :type => :feature do
         fill_in(:session_email, with: "jmiller@london.com")
         fill_in(:session_password, with: 'password')
         click_button "LogIn"
-        visit owner_dog_path(@buck)
+        visit edit_owner_dog_path(@buck)
+      end
+
+      it 'has a form with prefilled information' do
+        expect(page).to have_selector('form')
+        expect(page).to have_css('input[value="Buck"]')
+        expect(page).to have_css('#dog_bio', text: "Enjoys the call of the wild")
+      end
+
+      it 'can only be accessed by the owner' do
+        visit edit_owner_dog_path(@bandit)
+        expect(page).to have_content("Sorry, but you do not have access to that page.")
+        expect(page.current_path).to eq(dogs_path)
+      end
+
+      it 'lets you edit a dogs profile' do
+        fill_in(:dog_name, with: "Ghost Dog of the Northland")
+        fill_in(:dog_city, with: "Klondike Region, Canada")
+        click_button "Edit Profile"
+
+        expect(page).to have_content("Profile successfully updated!")
+        expect(page.current_path).to eq(owner_dog_path(@buck))
+        expect(Dog.find(@buck.id).name).to eq("Ghost Dog of the Northland")
       end
     end
   end
