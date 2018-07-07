@@ -38,6 +38,12 @@ class Owner::DogsController < ApplicationController
     end
   end
 
+  def destroy
+    Dog.find(@dog.id).destroy
+    flash[:notice] = "#{@dog.name}'s profile was succesfully deleted."
+    redirect_to dogs_path
+  end
+
   private
 
   def set_dog

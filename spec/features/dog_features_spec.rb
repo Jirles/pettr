@@ -167,62 +167,70 @@ RSpec.describe 'Dog Features', :type => :feature do
       expect(page).to have_content("500 characters is the maximum allowed for a bio")
       expect(page).to have_selector("form")
     end
+  end
+  describe 'owner dog edit page' do
+    before do
+      visit login_path
+      fill_in(:session_email, with: "jmiller@london.com")
+      fill_in(:session_password, with: 'password')
+      click_button "LogIn"
+      visit edit_owner_dog_path(@buck)
+    end
 
-    describe 'owner dog edit page' do
-      before do
-        visit login_path
-        fill_in(:session_email, with: "jmiller@london.com")
-        fill_in(:session_password, with: 'password')
-        click_button "LogIn"
-        visit edit_owner_dog_path(@buck)
-      end
+    it 'has a form with prefilled information' do
+      expect(page).to have_selector('form')
+      expect(page).to have_css('input[value="Buck"]')
+      expect(page).to have_css('#dog_bio', text: "Enjoys the call of the wild")
+    end
 
-      it 'has a form with prefilled information' do
-        expect(page).to have_selector('form')
-        expect(page).to have_css('input[value="Buck"]')
-        expect(page).to have_css('#dog_bio', text: "Enjoys the call of the wild")
-      end
+    it 'can only be accessed by the owner' do
+      visit edit_owner_dog_path(@bandit)
+      expect(page).to have_content("Sorry, but you do not have access to that page.")
+      expect(page.current_path).to eq(dogs_path)
+    end
 
-      it 'can only be accessed by the owner' do
-        visit edit_owner_dog_path(@bandit)
-        expect(page).to have_content("Sorry, but you do not have access to that page.")
-        expect(page.current_path).to eq(dogs_path)
-      end
+    it 'lets you edit a dogs profile' do
+      fill_in(:dog_name, with: "Ghost Dog of the Northland")
+      fill_in(:dog_city, with: "Klondike Region, Canada")
+      click_button "Edit Profile"
 
-      it 'lets you edit a dogs profile' do
-        fill_in(:dog_name, with: "Ghost Dog of the Northland")
-        fill_in(:dog_city, with: "Klondike Region, Canada")
-        click_button "Edit Profile"
+      expect(page).to have_content("Profile successfully updated!")
+      expect(page.current_path).to eq(owner_dog_path(@buck))
+      expect(Dog.find(@buck.id).name).to eq("Ghost Dog of the Northland")
+    end
 
-        expect(page).to have_content("Profile successfully updated!")
-        expect(page.current_path).to eq(owner_dog_path(@buck))
-        expect(Dog.find(@buck.id).name).to eq("Ghost Dog of the Northland")
-      end
+    it 'will not update a profile if name is not submitted' do
+      visit edit_owner_dog_path(@buck)
+      fill_in(:dog_name, with: "")
+      click_button "Edit Profile"
 
-      it 'will not update a profile if name is not submitted' do
-        visit edit_owner_dog_path(@buck)
-        fill_in(:dog_name, with: "")
-        click_button "Edit Profile"
+      expect(page).to have_content("Name can't be blank")
+      expect(page).to have_selector('form')
+    end
 
-        expect(page).to have_content("Name can't be blank")
-        expect(page).to have_selector('form')
-      end
+    it 'will not update if the bio is too long' do
+      fill_in(:dog_bio, with: "Doggo ipsum adorable doggo maximum borkdrive. Boof very hand that feed shibe vvv lotsa pats, blop shoober. Wow such tempt doing me a frighten I am bekom fat extremely cuuuuuute wow very biscit ur givin me a spook, puggo porgo snoot. Heckin shoober waggy wags h*ck very taste wow waggy wags borking doggo, smol woofer h*ck fat boi woofer, dat tungg tho pats doing me a frighten ur givin me a spook most angery pupper I have ever seen. Lotsa pats tungg doggo long water shoob, smol borking doggo with a long snoot for pats pats. Clouds borking doggo doing me a frighten maximum borkdrive adorable doggo, super chub very good spot thicc puggo, he made many woofs borking doggo heckin good boys.")
+      click_button "Edit Profile"
 
-      it 'will not update if the bio is too long' do
-        fill_in(:dog_bio, with: "Doggo ipsum adorable doggo maximum borkdrive. Boof very hand that feed shibe vvv lotsa pats, blop shoober. Wow such tempt doing me a frighten I am bekom fat extremely cuuuuuute wow very biscit ur givin me a spook, puggo porgo snoot. Heckin shoober waggy wags h*ck very taste wow waggy wags borking doggo, smol woofer h*ck fat boi woofer, dat tungg tho pats doing me a frighten ur givin me a spook most angery pupper I have ever seen. Lotsa pats tungg doggo long water shoob, smol borking doggo with a long snoot for pats pats. Clouds borking doggo doing me a frighten maximum borkdrive adorable doggo, super chub very good spot thicc puggo, he made many woofs borking doggo heckin good boys.")
-        click_button "Edit Profile"
-
-        expect(page).to have_content("500 characters is the maximum allowed for a bio")
-        expect(page).to have_selector("form")
-      end
+      expect(page).to have_content("500 characters is the maximum allowed for a bio")
+      expect(page).to have_selector("form")
     end
   end
 
-  # dogs index & show => public - dogs index should have link in navbar
-    # dogs index also has a filter option for results ordering => recently update, highest rating
-    # maybe even a search feature?
-  # dogs new, edit, update, create, destroy all namespaced under owner
-    # can be linked to from user profile page
-    # or the navbar if a dog exists
+  describe 'delete dog profile' do
+    before do
+      visit login_path
+      fill_in(:session_email, with: "jmiller@london.com")
+      fill_in(:session_password, with: 'password')
+      click_button "LogIn"
+    end
 
+    it 'deletes a dogs profile' do
+      visit owner_dog_path(@buck)
+      click_link "Delete Buck's Profile"
+
+      expect(Dog.find_by(id: @buck.id)).to be_falsey
+      expect(page).to have_content("Buck's profile was succesfully deleted.")
+    end
+  end
 end
