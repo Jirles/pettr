@@ -120,6 +120,30 @@ RSpec.describe 'Petting Features', :type => :feature do
       expect(page).to have_content("Pettr profile and name fields can't both be blank.")
       expect(page).to have_selector('form')
     end
+
+    it 'has a method update_dog_rating that will update a dogs rating if petting is linked to a dogs profile and creation is successful' do
+      visit new_petting_path
+      select("Bandit", from: :petting_dog_id)
+      fill_in(:petting_location, with: "Lore City, Ohio")
+      choose(:petting_pet_rating_20) #=> 2.0
+      fill_in(:petting_description, with: "eh")
+      click_button "Pettr"
+
+      expect(Dog.find(@bandit.id).user_rating).to eq(3.25)
+    end
+
+    it 'has a method update_dog_rating that will do nothing if petting is not affiliated with a dog profile' do
+      visit new_petting_path
+      fill_in(:petting_name, with: "Blue")
+      fill_in(:petting_breed, with: "Border Collie")
+      fill_in(:petting_location, with: "Lore City, Ohio")
+      choose(:petting_pet_rating_40) #=> 4.0
+      fill_in(:petting_description, with: "A nice dawg")
+      click_button "Pettr"
+
+      expect(page.current_path).to eq(petting_path(Petting.last))
+      expect(page).to have_content("Breed: Border Collie")
+    end
   end
 
   context 'edit page' do
@@ -171,6 +195,28 @@ RSpec.describe 'Petting Features', :type => :feature do
       expect(page).to have_content("Pettr profile and name fields can't both be blank.")
       expect(page).to have_selector('form')
     end
+
+    it 'has a method update_dog_rating that will update a dogs rating if petting is linked to a dogs profile and update is successful' do
+      click_link "LogOut"
+      visit login_path
+      fill_in(:session_email, with: "lbelcher@bobsburgers.com")
+      fill_in(:session_password, with: "bestmomever")
+      click_button "LogIn"
+
+      visit edit_petting_path(@linda_buck)
+      choose(:petting_pet_rating_40) #=> 4.o
+      click_button "Pettr"
+
+      expect(Dog.find(@buck.id).user_rating).to eq(4.5)
+    end
+
+    it 'has a method update_dog_rating that will do nothing if petting is not affiliated with a dog profile' do
+      visit edit_petting_path(@louise_blue)
+      choose(:petting_pet_rating_30) #=> 3.0
+      click_button "Pettr"
+
+      expect(page).to have_content("Update successful!")
+    end
   end
 
   context 'delete/destroy action features' do
@@ -191,6 +237,6 @@ RSpec.describe 'Petting Features', :type => :feature do
 
       expect(page.current_path).to eq(root_path)
       expect(Petting.find_by(id: @louise_blue.id)).to be_falsey
-      end
+    end
   end
 end

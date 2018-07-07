@@ -1,4 +1,5 @@
 class PettingsController < ApplicationController
+  #before_action :set_petting, only: [:show, :edit, :create, :destroy]
   skip_before_action :require_login, only: [:index]
 
   def index
@@ -16,12 +17,13 @@ class PettingsController < ApplicationController
   end
 
   def create
-    petting = @current_user.pettings.build(petting_params)
-    petting.set_attributes_if_dog_exists
-    if petting.save
-      redirect_to petting_path(petting)
+    @petting = @current_user.pettings.build(petting_params)
+    @petting.set_attributes_if_dog_exists
+    if @petting.save
+      update_dog_rating
+      redirect_to petting_path(@petting)
     else
-      @errors = petting.errors
+      @errors = @petting.errors
       @petting = Petting.new
       @dogs = Dog.all
       render :new
@@ -41,6 +43,7 @@ class PettingsController < ApplicationController
     @petting.update(petting_params) #=> updates fields
     @petting.set_attributes_if_dog_exists #=> takes care of dog attributes if a profile is chosen/changed
     if @petting.save
+      update_dog_rating
       flash[:notice] = "Update successful!"
       redirect_to petting_path(@petting)
     else
@@ -67,6 +70,12 @@ class PettingsController < ApplicationController
 
   def set_petting
     @petting = Petting.find(params[:id])
+  end
+
+  def update_dog_rating
+    if @petting.dog_id
+      Dog.find(@petting.dog_id).update_rating(@petting.pet_rating)
+    end
   end
 
 end
