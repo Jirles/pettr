@@ -198,6 +198,23 @@ RSpec.describe 'Dog Features', :type => :feature do
         expect(page.current_path).to eq(owner_dog_path(@buck))
         expect(Dog.find(@buck.id).name).to eq("Ghost Dog of the Northland")
       end
+
+      it 'will not update a profile if name is not submitted' do
+        visit edit_owner_dog_path(@buck)
+        fill_in(:dog_name, with: "")
+        click_button "Edit Profile"
+
+        expect(page).to have_content("Name can't be blank")
+        expect(page).to have_selector('form')
+      end
+
+      it 'will not update if the bio is too long' do
+        fill_in(:dog_bio, with: "Doggo ipsum adorable doggo maximum borkdrive. Boof very hand that feed shibe vvv lotsa pats, blop shoober. Wow such tempt doing me a frighten I am bekom fat extremely cuuuuuute wow very biscit ur givin me a spook, puggo porgo snoot. Heckin shoober waggy wags h*ck very taste wow waggy wags borking doggo, smol woofer h*ck fat boi woofer, dat tungg tho pats doing me a frighten ur givin me a spook most angery pupper I have ever seen. Lotsa pats tungg doggo long water shoob, smol borking doggo with a long snoot for pats pats. Clouds borking doggo doing me a frighten maximum borkdrive adorable doggo, super chub very good spot thicc puggo, he made many woofs borking doggo heckin good boys.")
+        click_button "Edit Profile"
+
+        expect(page).to have_content("500 characters is the maximum allowed for a bio")
+        expect(page).to have_selector("form")
+      end
     end
   end
 
