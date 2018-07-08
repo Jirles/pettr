@@ -25,4 +25,27 @@ describe 'User Model' do
     expect(@lightning.full_name).to eq("Lightning McQueen")
   end
 
+  it 'has a find_by_or_create_from_auth_hash class method that will create a new user using info from Facebook' do
+    auth_create = {'info': {'email': 'example@test.com', 'name': 'Jane Doe', 'uid': '12345'}}
+    user = User.find_by_or_create_from_auth_hash(auth_create)
+
+    expect(user.full_name).to eq('Jane Doe')
+    expect(user.email).to eq('example@test.com')
+    expect(user.authenticate('12345')).to be_truthy
+  end
+
+  it 'has a find_by_or_create_from_auth_hash class method that will find an existing user using info from Facebook' do
+    auth_find = {'info': {'email': 'jquest@cartoons.com', 'name': 'Johnny Quest', 'uid': '88719874829283'}}
+
+    user = User.find_by_or_create_from_auth_hash(auth_find)
+    expect(user).to eq(@jquest)
+  end
+
+  it 'returns nil if the email attribute isnt present' do
+    auth_no_email = {'info': {'name': 'Johnny Quest', 'uid': '88719874829283'}}
+
+    user = User.find_by_or_create_from_auth_hash(auth_no_email)
+    expect(user).to be_nil
+  end
+
 end
