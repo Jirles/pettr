@@ -4,6 +4,16 @@ class SessionsController < ApplicationController
   def new
   end
 
+  def facebook
+    @user = User.find_by_or_create_from_auth_hash(auth)
+    if @user.valid?
+      
+    else
+      flash[:notice] = "There was an issue accessing your information from Facebook."
+      redirect_back(:allow_other_host => false)
+    end
+  end
+
   def create
     @user = User.find_by(email: params[:session][:email])
     if @user && @user.authenticate(params[:session][:password])
@@ -11,13 +21,19 @@ class SessionsController < ApplicationController
       redirect_to user_path(@user)
     else
       flash[:notice] = "Email/password can't be blank."
-      render :new
+      redirect_to login_path
     end
   end
 
   def destroy
     session.clear
     redirect_to root_path
+  end
+
+  private
+
+  def auth
+    request.env['omniauth.auth']
   end
 
 end
