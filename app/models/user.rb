@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   end
 
   def self.find_by_or_create_from_auth_hash(auth_hash)
-    return if auth['info']['email'].nil?
+    return nil if auth['info']['email'].nil?
 
     user = User.find_by(email: auth_hash['info']['email'])
     if user.nil?
@@ -39,5 +39,5 @@ class User < ActiveRecord::Base
   def last_name_by_auth(auth)
     auth['info']['name'].split(" ")[-1]
   end
-  
+
 end
