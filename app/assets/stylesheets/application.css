@@ -13,3 +13,22 @@
  *= require_tree .
  *= require_self
  */
+
+/* petting display */
+ span.petting-description-link {
+    font-size: 1.25em;
+}
+span.petting-info-span {
+    display: block;
+}
+
+div.petting-card {
+    margin-bottom: 2em;
+}
+
+.petting-description-link a:hover {
+    text-decoration: underline;
+}
+.petting-description-link a {
+    text-decoration: none;
+}

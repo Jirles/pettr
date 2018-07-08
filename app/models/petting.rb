@@ -18,4 +18,13 @@ class Petting < ActiveRecord::Base
       errors.add(:pettr_profile_and_name, "fields can't both be blank.")
     end
   end
+
+  def self.highest_rated
+    
+  end
+
+  def self.most_recent
+    order(updated_at: :desc, created_at: :desc)
+  end
+
 end

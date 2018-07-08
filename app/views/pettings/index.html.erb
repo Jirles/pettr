@@ -1,12 +1,8 @@
 <h1>Pettr</h1>
 <%= link_to "Create new Pettr", new_petting_path %><br><br>
 
+<div class="petting-cards-container">
 <% @pettings.each do |petting| %>
-  <div class="petting-card">
-    <span class="petting-info-span petting-description-link"><%= link_to petting.description, petting_path(petting) %></span><br>
-    <span class="petting-info-span"><%= user_dog_petting_display(petting) %></span><br>
-    <span class="petting-info-span"><%= petting_rating_display(petting) %> </span><br>
-    <span class="petting-info-span"><%= petting.location %></span>
-  </div>
-  <br>
+  <%= display_petting_cards(petting, petting_index_pets_display, petting_index_rating_display) %>
 <% end %>
+</div>

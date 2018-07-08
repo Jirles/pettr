@@ -4,7 +4,7 @@ class PettingsController < ApplicationController
   skip_before_action :require_login, only: [:index]
 
   def index
-    @pettings = Petting.all
+    @pettings = Petting.most_recent
   end
 
   def show
