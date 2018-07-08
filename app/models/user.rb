@@ -19,4 +19,25 @@ class User < ActiveRecord::Base
   def pets
     self.pet_accounts.collect{ |account| Dog.find(account.dog_id) }
   end
+
+  def self.find_by_or_create_from_auth_hash(auth_hash)
+    return if auth['info']['email'].nil?
+
+    user = User.find_by(email: auth_hash['info']['email'])
+    if user.nil?
+      user = User.create(first_name: first_name_from_auth(auth_hash), last_name: last_name_by_auth(auth_hash), email: auth_hash['info']['email'], password: auth_hash['info']['uid'])
+    end
+    user
+  end
+
+  private
+
+  def first_name_from_auth(auth)
+    auth['info']['name'].split(" ")[0]
+  end
+
+  def last_name_by_auth(auth)
+    auth['info']['name'].split(" ")[-1]
+  end
+  
 end
