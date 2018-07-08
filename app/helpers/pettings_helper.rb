@@ -1,8 +1,18 @@
 module PettingsHelper
 
   def petting_index_pets_display
-    Proc.new { | user_name, dog_name | "#{user_name} pet #{dog_name}!" }
+    Proc.new { | petting | "#{petting.user.full_name} pet #{petting.name}!" }
   end
+
+  #def petting_index_pets_display
+  #  Proc.new do |petting|
+  #    if petting.dog_id
+  #      "#{petting.user.full_name} pet #{petting.name}!"
+  #    else
+  #      "#{petting.user.full_name} pet #{petting.name}!"
+  #    end
+  #  end
+  #end
 
   def petting_index_rating_display
     Proc.new { |rating| "#{rating}/5.0 would do it again" }
