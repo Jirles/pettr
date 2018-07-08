@@ -1,5 +1,6 @@
 class PettingsController < ApplicationController
-  #before_action :set_petting, only: [:show, :edit, :create, :destroy]
+  before_action :set_petting, only: [:show, :edit, :create, :destroy]
+  before_action :owner_permissions_check, only: [:edit, :create, :destroy]
   skip_before_action :require_login, only: [:index]
 
   def index
@@ -7,7 +8,6 @@ class PettingsController < ApplicationController
   end
 
   def show
-    set_petting
   end
 
   def new
@@ -31,15 +31,11 @@ class PettingsController < ApplicationController
   end
 
   def edit
-    set_petting
-    owner_permissions_check(@petting.user_id) #=> redirects to root path if check fails
     @dogs = Dog.all
     @errors = nil
   end
 
   def update
-    set_petting
-    owner_permissions_check(@petting.user_id) #=> redirects to root path if check fails
     @petting.update(petting_params) #=> updates fields
     @petting.set_attributes_if_dog_exists #=> takes care of dog attributes if a profile is chosen/changed
     if @petting.save
@@ -54,9 +50,6 @@ class PettingsController < ApplicationController
   end
 
   def destroy
-    set_petting
-    owner_permissions_check(@petting.user_id) #=> redirects to root path if check fails
-
     Petting.find(@petting.id).destroy
     flash[:notice] = "Record successfully deleted."
     redirect_to root_path
@@ -78,8 +71,8 @@ class PettingsController < ApplicationController
     end
   end
 
-  def owner_permissions_check(user_id)
-    unless user_id == @current_user.id
+  def owner_permissions_check
+    unless @petting.user_id == @current_user.id
       flash[:notice] = "Sorry, but you're not allowed to do that."
       redirect_to root_path
     end

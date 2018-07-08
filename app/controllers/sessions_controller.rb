@@ -5,14 +5,13 @@ class SessionsController < ApplicationController
   end
 
   def facebook
-    raise auth.inspect
     @user = User.find_by_or_create_from_auth_hash(auth)
     if !@user.nil? && @user.valid?
       session[:user_id] = @user.id
       redirect_to user_path(@user)
     else
       flash[:notice] = "There was an issue accessing your information from Facebook."
-      redirect_back(:allow_other_host => false)
+      redirect_back(:fallback_location => login_path, :allow_other_host => false)
     end
   end
 
