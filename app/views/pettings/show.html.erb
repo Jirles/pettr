@@ -3,7 +3,7 @@
 
 <ul>
   <li>Human: <%= link_to @petting.user.full_name, user_path(@petting.user) %></li>
-  <li>Dog: <%= petting_show_display_dog_name.call(@petting) %> </li>
+  <li>Dog: <%= petting_show_display_dog_name(@petting) %> </li>
   <li>Breed: <%= @petting.breed %></li>
   <li>Location: <%= @petting.location %></li>
 </ul>
