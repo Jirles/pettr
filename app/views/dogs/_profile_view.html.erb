@@ -11,7 +11,7 @@
   <h3><%= dog.name %>'s Pats</h3>
 
   <div class="dog-pettings-info">
-    <% pettings.each do |petting| %>
+    <% @pettings.each do |petting| %>
       <%= display_petting_cards(petting, dog_pet_by_user_display, dog_show_rating_display) %>
     <% end %>
   </div>

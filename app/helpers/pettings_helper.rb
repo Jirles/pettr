@@ -1,7 +1,7 @@
 module PettingsHelper
 
   def petting_index_pets_display
-    Proc.new { | petting | "#{petting.user.full_name} pet #{petting.name}!" }
+    Proc.new{ | petting | "#{petting.user.full_name} pet #{petting.name}!" }
   end
 
   #def petting_index_pets_display
@@ -25,6 +25,14 @@ module PettingsHelper
         concat ' '
         concat link_to("Delete", petting, method: :delete, data: { confirm: "Are you sure you want to delete this record?" })
       end
+    end
+  end
+
+  def petting_show_display_dog_name(petting)
+    if petting.dog_id
+      link_to "#{petting.name}", dog_path(petting.dog_id)
+    else
+      petting.name
     end
   end
 
