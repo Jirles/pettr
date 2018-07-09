@@ -5,7 +5,7 @@
     <span class="dog-info-span dog-name-link"><%= link_to dog.name, dog_path(dog) %></span><br>
     <span class="dog-info-span"><%= dog.breed %></span><br>
     <span class="dog-info-span"><%= dog.city %> </span><br>
-    <span class="dog-info-span"><%= display_dog_rating(dog) %></span>
+    <span class="dog-info-span"><%= dog_show_rating_display.call(dog.user_rating) %></span>
   </div>
   <br>
 <% end %>
