@@ -1,5 +1,16 @@
 <h1><%= @user.full_name %></h1>
-<% if @user.has_pets? %>
-  <%= display_dog_profiles(@user, @current_user) %>
+
+<%= display_dog_profiles(@user, @current_user) %>
+<br><br>
+<%= link_to "Create a Pettr Pet Profile", new_owner_dog_path %><br><br>
+
+<% if @user.pettings.size > 0 %>
+  <h3>Doggos you've pet</h3>
+  <div class="user-pettings-container">
+    <% @pettings.each do |petting| %>
+      <%= user_display_petting_cards(petting, user_show_pet_dog_display, petting_index_rating_display)%>
+    <% end %>
+  </div>
 <% end %>
-<%= link_to "Create a Pettr Pet Profile", new_owner_dog_path %>
+
+<%= link_to "Add a new pat", new_petting_path %>

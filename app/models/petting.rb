@@ -19,10 +19,6 @@ class Petting < ActiveRecord::Base
     end
   end
 
-  def self.highest_rated
-    
-  end
-
   def self.most_recent
     order(updated_at: :desc, created_at: :desc)
   end

@@ -18,6 +18,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @pettings = @user.pettings.most_recent
   end
 
   private
