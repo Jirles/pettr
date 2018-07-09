@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   end
 
   def has_pets?
-    !!self.pet_accounts
+    self.pet_accounts.size > 0
   end
 
   def pets

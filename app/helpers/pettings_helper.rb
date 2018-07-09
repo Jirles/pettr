@@ -5,9 +5,9 @@ module PettingsHelper
   end
 
   #def petting_index_pets_display
-  #  Proc.new do |petting|
+  #  Proc.new do | petting, link_to |
   #    if petting.dog_id
-  #      "#{petting.user.full_name} pet #{petting.name}!"
+  #      "#{petting.user.full_name}" + " pet " + "#{link_to(petting.name, dog_path(petting.dog_id))}" + "!"
   #    else
   #      "#{petting.user.full_name} pet #{petting.name}!"
   #    end

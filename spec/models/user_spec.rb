@@ -48,4 +48,9 @@ describe 'User Model' do
     expect(user).to be_nil
   end
 
+  it 'has a #has_pets? method that returns true if a user has pet_accounts' do
+    expect(@linda.has_pets?).to be_falsey
+    expect(@jquest.has_pets?).to be_truthy
+  end
+
 end
