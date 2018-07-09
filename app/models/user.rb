@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
       first_name = auth_hash[:info][:name].split(" ")[0]
       last_name = auth_hash[:info][:name].split(" ")[-1]
 
-      user = User.create(first_name: first_name, last_name: last_name, email: auth_hash[:info][:email], password: auth_hash[:info][:uid])
+      user = User.create(first_name: first_name, last_name: last_name, email: auth_hash[:info][:email], password: auth_hash[:uid])
     end
     user
   end
