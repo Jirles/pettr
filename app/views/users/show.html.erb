@@ -8,7 +8,7 @@
   <h3>Doggos you've pet</h3>
   <div class="user-pettings-container">
     <% @pettings.each do |petting| %>
-      <%= user_display_petting_cards(petting, user_show_pet_dog_display, petting_index_rating_display)%>
+      <%= display_petting_cards(petting, user_show_pet_dog_display, petting_index_rating_display)%>
     <% end %>
   </div>
 <% end %>

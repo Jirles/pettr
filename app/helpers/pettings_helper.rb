@@ -14,6 +14,15 @@ module PettingsHelper
   #  end
   #end
 
+  def display_petting_cards(petting, user_pets_dog_display, rating_display)
+    content_tag :div, :class => 'petting-card' do
+      concat(content_tag :span, link_to(petting.description, petting_path(petting)), :class => "petting-info-span petting-description-link")
+      concat(content_tag :span, user_pets_dog_display.call(petting), class: "petting-info-span")
+      concat(content_tag :span, rating_display.call(petting.pet_rating), class: "petting-info-span")
+      concat(content_tag :span, petting.location, class: "petting-info-span")
+    end
+  end
+
   def petting_index_rating_display
     Proc.new { |rating| "#{rating}/5.0 would do it again" }
   end
