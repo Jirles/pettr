@@ -5,7 +5,6 @@ class SessionsController < ApplicationController
   end
 
   def facebook
-    raise auth.inspect
     @user = User.find_by_or_create_from_auth_hash(auth)
     if !@user.nil? && @user.valid?
       session[:user_id] = @user.id
