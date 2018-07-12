@@ -1,7 +1,7 @@
 module UsersHelper
 
   def user_show_pet_dog_display
-    Proc.new{|dog_name| "You pet #{dog_name}!" }
+    Proc.new{|petting| "You pet #{petting.name}!" }
   end
 
   def display_user_info
