@@ -1,4 +1,4 @@
-class Comment < ApplicationRecord
-    has_one :user 
-    has_one :petting
+class Comment < ActiveRecord::Base
+    belong_to :user 
+    belong_to :petting
 end
