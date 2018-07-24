@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   has_many :pettings
   has_many :dogs, through: :pettings #user can pet a lot of dogs
   has_many :pet_accounts
+  has_many :comments
 
   validates :first_name, presence: true
   validates :last_name, presence: true

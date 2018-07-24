@@ -1,6 +1,7 @@
 class Petting < ActiveRecord::Base
   belongs_to :user
   belongs_to :dog, optional: true
+  has_many :comments
   validate :dog_id_or_name_present?
 
   def set_attributes_if_dog_exists
