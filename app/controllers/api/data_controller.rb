@@ -2,7 +2,7 @@ class Api::DataController < ApplicationController
     skip_before_action :require_login
 
     def pettings
-        @pettings ||= Petting.all
+        @pettings ||= Petting.most_recent
         render json: @pettings, status: 200  
     end 
 
