@@ -4,7 +4,7 @@ class PettingsController < ApplicationController
   skip_before_action :require_login, only: [:index]
 
   def index
-    resp = Faraday.get('http://localhost:3000/api/pettings')
+    resp = Faraday.get 'http://localhost:3000/api/pettings'
     @resp = JSON.parse(resp.body)
   end
 

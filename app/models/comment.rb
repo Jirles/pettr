@@ -1,4 +1,4 @@
 class Comment < ActiveRecord::Base
-    belong_to :user 
-    belong_to :petting
+    belongs_to :user 
+    belongs_to :petting
 end
