@@ -1,12 +1,17 @@
-<h1 id="description"></h1>
-<h3 id="rating-tagline"></h3>
+<div class="show pettings" data-currentUserId="<%=@current_user.id%>" data-recordId="<%=params[:id]%>">
+  <h1 id="description"></h1>
+  <h3 id="rating-tagline"></h3>
 
-<ul>
-  <li id="link-to-user-page"></li>
-  <li id="dog-name"></li>
-  <li id="dog-breed"></li>
-  <li id="petting-location"></li>
-</ul>
+  <ul>
+    <li id="link-to-user-page"></li>
+    <li id="dog-name"></li>
+    <li id="dog-breed"></li>
+    <li id="petting-location"></li>
+  </ul>
+
+  <div id="edit-delete-btns"></div>
+
+</div>
 
 
-<%= edit_delete_options(@petting, @current_user) %>
+

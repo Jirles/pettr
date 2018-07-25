@@ -27,8 +27,8 @@ module PettingsHelper
     Proc.new { |rating| "#{rating}/5.0 would do it again" }
   end
 
-  def edit_delete_options(petting, current_user)
-    if petting.user == current_user
+  def edit_delete_options(petting_user_id, current_user_id)
+    if petting_user_id == current_user_id
       capture do
         concat link_to("Edit", edit_petting_path(petting))
         concat ' '
