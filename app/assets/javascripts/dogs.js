@@ -24,7 +24,6 @@ $(function(){
             });
         };
     });
-    
 });
 
 class Dog {

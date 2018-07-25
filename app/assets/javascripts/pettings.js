@@ -20,7 +20,7 @@ $(function(){
                 $('#edit-delete-btns').html(record.setEditDeleteButtons(pageDataset.currentuserid));
             });
         };
-    })
+    });
 });
 
 class Petting {
