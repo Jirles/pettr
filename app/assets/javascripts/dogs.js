@@ -1,13 +1,17 @@
 $(function(){
     if ($('.index.dogs').length){
         $.get('/api/dogs', function(data){
-
+            dogCards = $.map(data, function(dog){
+                const doggo = new Dog(dog.id, dog.name, dog.breed, dog.age, dog.city, dog.rating, dog.bio);
+                return doggo.createDogProfileCard();
+            }).join('');
+            $('#dog-profile-cards').html(dogCards);
         });
     }
 });
 
 class Dog {
-    constructor(id, name, breed, age, city, rating, bio){
+    constructor(id, name, breed, age, city, rating, bio, pettings = []){
         this.id = id;
         this.name = name;
         this.breed = breed;
@@ -15,6 +19,7 @@ class Dog {
         this.city = city;
         this.rating = rating;
         this.bio = bio;
+        this.pettings = pettings;
     }
 
     linkToDogProfile(){

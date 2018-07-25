@@ -16,3 +16,4 @@
 //= require jquery
 //= require jquery_ujs
 //= require pettings
+//= require dogs
