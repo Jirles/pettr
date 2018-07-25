@@ -1,11 +1,11 @@
-<h1><%= @petting.description %></h1>
-<h3><%= petting_index_rating_display.call(@petting.pet_rating) %></h3>
+<h1 id="description"></h1>
+<h3 id="rating-tagline"></h3>
 
 <ul>
-  <li>Human: <%= link_to @petting.user.full_name, user_path(@petting.user) %></li>
-  <li>Dog: <%= petting_show_display_dog_name(@petting) %> </li>
-  <li>Breed: <%= @petting.breed %></li>
-  <li>Location: <%= @petting.location %></li>
+  <li id="link-to-user-page"></li>
+  <li id="dog-name"></li>
+  <li id="dog-breed"></li>
+  <li id="petting-location"></li>
 </ul>
 
 
