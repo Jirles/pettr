@@ -30,6 +30,7 @@ Rails.application.routes.draw do
     get '/pettings' => 'data#pettings'
     get '/pettings/:id' => 'data#petting'
     get '/users/:id' => 'data#user'
+    get '/dogs' => 'data#dogs'
     get '/dogs/:id' => 'data#dog'
     post '/comments' => 'data#create_comment'
   end 

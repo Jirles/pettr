@@ -1,5 +1,9 @@
 $(function(){
+    if ($('.index.dogs').length){
+        $.get('/api/dogs', function(data){
 
+        });
+    }
 });
 
 class Dog {

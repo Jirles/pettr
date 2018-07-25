@@ -11,6 +11,11 @@ class Api::DataController < ApplicationController
         render json: @petting, status: 200
     end 
 
+    def dogs
+        @dogs ||= Dog.all
+        render json: @dogs, status: 200  
+    end 
+
     def dog
         @dog ||= Dog.find(params[:id])
         render json: @dog, status: 200
