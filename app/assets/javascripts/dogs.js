@@ -19,6 +19,7 @@ $(function(){
             $('#dog-pats-tagline').text(`${dog.name}'s Pats`);
             const pettingCards = Petting.createTrunacatedPetCardCollection(data.pettings);
             $('#dog-pettings-div').html(pettingCards);
+            $('#owner-editing-options').html(dog.profileEditDeleteButtons());
         });
     };
 });
@@ -67,5 +68,11 @@ class Dog {
         htmlBlock += this.dogProfileSpan(this.bio);
         htmlBlock += this.dogProfileSpan(this.dogRatingDisplay());
         return htmlBlock;
+    }
+
+    profileEditDeleteButtons(){
+        const editButton = `<a href='/owner/dogs/${this.id}/edit'><button>Edit</button></a>`;
+        const deleteButton = `<form action='/owner/dogs/${this.id}' method='post'><input type='hidden' name='authenticity_token' value='${$('meta[name="csrf-token"]').attr('content')}'><input type='hidden' name='_method' value='delete'><button type='submit'>Delete</button></form>`;
+        return editButton + deleteButton;
     }
 }

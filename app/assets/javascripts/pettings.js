@@ -88,8 +88,8 @@ class Petting {
 
     setEditDeleteButtons(id){
         if (this.userId === id){
-            let editButton = `<a href='/pettings/${this.id}/edit'><button>Edit</button></a>`;
-            let deleteButton = `<form action='/pettings/${this.id}' method='post'><input type='hidden' name='authenticity_token' value='${$('meta[name="csrf-token"]').attr('content')}'><input type='hidden' name='_method' value='delete'><button type='submit'>Delete</button></form>`;
+            const editButton = `<a href='/pettings/${this.id}/edit'><button>Edit</button></a>`;
+            const deleteButton = `<form action='/pettings/${this.id}' method='post'><input type='hidden' name='authenticity_token' value='${$('meta[name="csrf-token"]').attr('content')}'><input type='hidden' name='_method' value='delete'><button type='submit'>Delete</button></form>`;
             return editButton + deleteButton;
         }
     }
