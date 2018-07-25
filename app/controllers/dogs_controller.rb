@@ -4,11 +4,9 @@ class DogsController < ApplicationController
   end
 
   def show
-    @dog = Dog.find(params[:id])
+    dog = Dog.find(params[:id])
 
-    redirect_to owner_dog_path(@dog) if @dog.owner == @current_user
-
-    @pettings = @dog.pettings.most_recent
+    redirect_to owner_dog_path(dog) if dog.owner == @current_user
   end
 
 end

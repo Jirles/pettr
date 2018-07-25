@@ -7,7 +7,14 @@ $(function(){
             }).join('');
             $('#dog-profile-cards').html(dogCards);
         });
-    }
+    };
+    
+    if ($('.show.dogs').length){
+        const pageDataset = $('.show.dogs').data();
+        $.get(`/api/dogs/${pageDataset.recordid}`, function(data){
+            
+        });
+    };
 });
 
 class Dog {
