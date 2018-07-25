@@ -4,7 +4,6 @@ class Owner::DogsController < ApplicationController
   skip_before_action :authenticate_owner, only: [:new, :create]
 
   def show
-    @pettings = @dog.pettings.most_recent
   end
 
   def new
