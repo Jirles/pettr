@@ -1,24 +1,26 @@
 $(function(){
-    if ($('.home.pettings').length){
-        $.get('/api/pettings', function(data){
-            pettingCards = Petting.createPetCardCollectionFromJSON(data)
-            $('#petting-cards-container').html(pettingCards);
-          });
-    };
-
-    if ($('.show.pettings').length){
-        const pageDataset = $('.show.pettings').data();
-        $.get(`/api/pettings/${pageDataset.recordid}`, function(data){
-            const record = new Petting(data.id, data.dog_id, data.name, data.pet_rating, data.description, data.location, data.breed, data.user.first_name, data.user.last_name, data.user.id)
-            $('#description').text(record.description);
-            $('#rating-tagline').text(`${record.rating}/5.0 would pet again`);
-            $('#dog-name').text(`Doggo: ${record.name}`);
-            $('#dog-breed').text(`Breed: ${record.breed}`);
-            $('#link-to-user-page').html(`Pet by ${record.linkToUserPage()}`);
-            $('#petting-location').text(record.location);
-            $('#edit-delete-btns').html(record.setEditDeleteButtons(pageDataset.currentuserid));
-        });
-    };
+    $(document).on('turbolinks:load', function(){
+        if ($('.home.pettings').length){
+            $.get('/api/pettings', function(data){
+                pettingCards = Petting.createPetCardCollectionFromJSON(data)
+                $('#petting-cards-container').html(pettingCards);
+              });
+        };
+    
+        if ($('.show.pettings').length){
+            const pageDataset = $('.show.pettings').data();
+            $.get(`/api/pettings/${pageDataset.recordid}`, function(data){
+                const record = new Petting(data.id, data.dog_id, data.name, data.pet_rating, data.description, data.location, data.breed, data.user.first_name, data.user.last_name, data.user.id)
+                $('#description').text(record.description);
+                $('#rating-tagline').text(`${record.rating}/5.0 would pet again`);
+                $('#dog-name').text(`Doggo: ${record.name}`);
+                $('#dog-breed').text(`Breed: ${record.breed}`);
+                $('#link-to-user-page').html(`Pet by ${record.linkToUserPage()}`);
+                $('#petting-location').text(record.location);
+                $('#edit-delete-btns').html(record.setEditDeleteButtons(pageDataset.currentuserid));
+            });
+        };
+    })
 });
 
 class Petting {

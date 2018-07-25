@@ -1,27 +1,30 @@
 $(function(){
-    if ($('.index.dogs').length){
-        $.get('/api/dogs', function(data){
-            dogCards = $.map(data, function(dog){
-                const doggo = new Dog(dog.id, dog.name, dog.breed, dog.age, dog.city, dog.user_rating, dog.bio);
-                return doggo.createDogProfileCard();
-            }).join('');
-            $('#dog-profile-cards').html(dogCards);
-        });
-    };
+    $(document).on('turbolinks:load', function(){
+        if ($('.index.dogs').length){
+            $.get('/api/dogs', function(data){
+                dogCards = $.map(data, function(dog){
+                    const doggo = new Dog(dog.id, dog.name, dog.breed, dog.age, dog.city, dog.user_rating, dog.bio);
+                    return doggo.createDogProfileCard();
+                }).join('');
+                $('#dog-profile-cards').html(dogCards);
+            });
+        };
+        
+        if ($('.show.dogs').length){
+            const pageDataset = $('.show.dogs').data();
+            $.get(`/api/dogs/${pageDataset.recordid}`, function(data){
+                const dog = new Dog(data.id, data.name, data.breed, data.age, data.city, data.user_rating, data.bio, data.pettings);
+                $('#dog-name-title').text(dog.name);
+                $('#dog-city').text(dog.city);
+                $('#dog-details-div').html(dog.createDogDetailsForProfile());
+                $('#dog-pats-tagline').text(`${dog.name}'s Pats`);
+                const pettingCards = Petting.createTrunacatedPetCardCollection(data.pettings);
+                $('#dog-pettings-div').html(pettingCards);
+                $('#owner-editing-options').html(dog.profileEditDeleteButtons());
+            });
+        };
+    });
     
-    if ($('.show.dogs').length){
-        const pageDataset = $('.show.dogs').data();
-        $.get(`/api/dogs/${pageDataset.recordid}`, function(data){
-            const dog = new Dog(data.id, data.name, data.breed, data.age, data.city, data.user_rating, data.bio, data.pettings);
-            $('#dog-name-title').text(dog.name);
-            $('#dog-city').text(dog.city);
-            $('#dog-details-div').html(dog.createDogDetailsForProfile());
-            $('#dog-pats-tagline').text(`${dog.name}'s Pats`);
-            const pettingCards = Petting.createTrunacatedPetCardCollection(data.pettings);
-            $('#dog-pettings-div').html(pettingCards);
-            $('#owner-editing-options').html(dog.profileEditDeleteButtons());
-        });
-    };
 });
 
 class Dog {
