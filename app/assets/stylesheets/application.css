@@ -14,11 +14,11 @@
  *= require_self
  */
 
-/* petting display */
- span.petting-description-link {
+/* petting, dog display */
+ span.petting-description-link, span.dog-name-link {
     font-size: 1.25em;
 }
-span.petting-info-span {
+span.petting-info-span, span.dog-info-span {
     display: block;
 }
 
@@ -26,9 +26,9 @@ div.petting-card {
     margin-bottom: 2em;
 }
 
-.petting-description-link a:hover {
+.petting-description-link a:hover, .dog-name-link a:hover {
     text-decoration: underline;
 }
-.petting-description-link a {
+.petting-description-link a, .dog-name-link a {
     text-decoration: none;
 }
