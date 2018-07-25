@@ -12,7 +12,13 @@ $(function(){
     if ($('.show.dogs').length){
         const pageDataset = $('.show.dogs').data();
         $.get(`/api/dogs/${pageDataset.recordid}`, function(data){
-            
+            const dog = new Dog(data.id, data.name, data.breed, data.age, data.city, data.user_rating, data.bio, data.pettings);
+            $('#dog-name-title').text(dog.name);
+            $('#dog-city').text(dog.city);
+            $('#dog-details-div').html(dog.createDogDetailsForProfile());
+            $('#dog-pats-tagline').text(`${dog.name}'s Pats`);
+            const pettingCards = Petting.createTrunacatedPetCardCollection(data.pettings);
+            $('#dog-pettings-div').html(pettingCards);
         });
     };
 });
@@ -37,6 +43,10 @@ class Dog {
         return `<span class='dog-info-span'>${content}</span>`;
     }
 
+    dogProfileSpan(content){
+        return `<span class='dog-profile-span'>${content}</span>`
+    }
+
     dogRatingDisplay(){
         return `${this.rating}/5.0 stars!`;
     }
@@ -44,10 +54,18 @@ class Dog {
     createDogProfileCard(){
         let card = '<div>';
         card += this.linkToDogProfile();
-        card += this.dogInfoSpan(this.breed);
-        card += this.dogInfoSpan(this.city);
-        card += this.dogInfoSpan(this.dogRatingDisplay());
+        card += this.dogProfileSpan(this.breed);
+        card += this.dogProfileSpan(this.city);
+        card += this.dogProfileSpan(this.dogRatingDisplay());
         card += '</div><br><br>';
         return card;
+    }
+
+    createDogDetailsForProfile(){
+        let htmlBlock = this.dogProfileSpan(this.breed);
+        htmlBlock += this.dogProfileSpan(`${this.age} years old`);
+        htmlBlock += this.dogProfileSpan(this.bio);
+        htmlBlock += this.dogProfileSpan(this.dogRatingDisplay());
+        return htmlBlock;
     }
 }

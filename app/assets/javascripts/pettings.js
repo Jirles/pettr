@@ -1,11 +1,7 @@
 $(function(){
     if ($('.home.pettings').length){
         $.get('/api/pettings', function(data){
-            
-            pettingCards = $.map(data, function(petting){
-              const record = new Petting(petting.id, petting.dog_id, petting.name, petting.pet_rating, petting.description, petting.location, petting.breed, petting.user.first_name, petting.user.last_name, petting.user.id)
-              return record.createPetCard()
-            }).join('');
+            pettingCards = Petting.createPetCardCollectionFromJSON(data)
             $('#petting-cards-container').html(pettingCards);
           });
     };
@@ -66,6 +62,28 @@ class Petting {
         card += this.pettingInfoSpan(this.location);
         card += '</div>'
         return card;
+    }
+
+    createTrunacatedPetCard(){
+        let card = '<div class="petting-card" >';
+        card += this.descriptionLinkFormatter();
+        card += this.pettingInfoSpan(this.indexRating());
+        card += '</div>'
+        return card;
+    }
+
+    static createPetCardCollectionFromJSON(json){
+       return  $.map(json, function(petting){
+            const record = new Petting(petting.id, petting.dog_id, petting.name, petting.pet_rating, petting.description, petting.location, petting.breed, petting.user.first_name, petting.user.last_name, petting.user.id)
+            return record.createPetCard()
+          }).join('');
+    }
+
+    static createTrunacatedPetCardCollection(json){
+        return  $.map(json, function(petting){
+            const record = new Petting(petting.id, petting.dog_id, petting.name, petting.pet_rating, petting.description, petting.location, petting.breed)
+            return record.createTrunacatedPetCard()
+          }).join('');
     }
 
     setEditDeleteButtons(id){

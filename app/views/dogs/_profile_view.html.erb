@@ -1,19 +1,12 @@
-<div class="container">
-  <div class="dog-profile-card">
-    <h1><%= dog.name %></h1>
-    <h4><%= dog.city %></h4>
-    <span class="dog-profile-span"><%= dog.breed %></span><br>
-    <span class="dog-profile-span"><%= dog.age %> years old </span><br>
-    <span class="dog-profile-span"><%= dog.bio %></span><br>
-    <span class="dog-profile-span"><%= dog_show_rating_display.call(dog.user_rating) %></span><br>
-  </div>
-
-  <h3><%= dog.name %>'s Pats</h3>
-
-  <div class="dog-pettings-info">
-    <% @pettings.each do |petting| %>
-      <%= display_petting_cards(petting, dog_pet_by_user_display, dog_show_rating_display) %>
-    <% end %>
-  </div>
-
+<div>
+  <h1 id="dog-name-title"></h1>
+  <h4 id="dog-city"></h4>
+  <div id="dog-details-div">
 </div>
+
+<h3 id="dog-pats-tagline"></h3>
+
+<div id="dog-pettings-div">
+</div>
+
+

@@ -18,7 +18,7 @@
  span.petting-description-link, span.dog-name-link {
     font-size: 1.25em;
 }
-span.petting-info-span, span.dog-info-span {
+span.petting-info-span, span.dog-info-span, span.dog-profile-span {
     display: block;
 }
 
