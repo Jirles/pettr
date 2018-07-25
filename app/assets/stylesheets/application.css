@@ -14,6 +14,56 @@
  *= require_self
  */
 
+ /* body display */
+
+ body {
+     text-align: center;
+ }
+
+ /* navbar */
+
+ .clearfix:after {
+    content: ".";
+    visibility: hidden;
+    display: block;
+    height: 0;
+    clear: both;
+ }
+
+ ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+li {
+    float: right;
+    border-left: 1px solid #706241;
+}
+
+li:first-child{
+    border-left: none;
+}
+
+#homepage-link {
+    font-size: 1.5em;
+    float: left;
+}
+
+li a {
+    display: block;
+    color:#706241;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+    background-color: rgb(243, 206, 84);
+}
+
 /* petting, dog display */
  span.petting-description-link, span.dog-name-link {
     font-size: 1.25em;

@@ -10,9 +10,14 @@
   </head>
 
   <body>
-    <%= yield :fb_sdk %>
-    <%= link_to "Home", root_path %>
-    <%= set_navbar_options(@current_user) %>
+    <navbar>
+      <div class="clearfix">
+        <ul>
+          <li id='homepage-link'><%= link_to "Pettr", root_url %></li>
+          <%= set_navbar_options(@current_user) %>
+        <ul>
+      </div>
+    </navbar>
     <%= display_flash_notices %>
     <%= yield %>
   </body>
