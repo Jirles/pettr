@@ -2,7 +2,7 @@ $(function(){
     if ($('.index.dogs').length){
         $.get('/api/dogs', function(data){
             dogCards = $.map(data, function(dog){
-                const doggo = new Dog(dog.id, dog.name, dog.breed, dog.age, dog.city, dog.rating, dog.bio);
+                const doggo = new Dog(dog.id, dog.name, dog.breed, dog.age, dog.city, dog.user_rating, dog.bio);
                 return doggo.createDogProfileCard();
             }).join('');
             $('#dog-profile-cards').html(dogCards);
@@ -40,7 +40,7 @@ class Dog {
         card += this.dogInfoSpan(this.breed);
         card += this.dogInfoSpan(this.city);
         card += this.dogInfoSpan(this.dogRatingDisplay());
-        card += '</div>';
+        card += '</div><br><br>';
         return card;
     }
 }
