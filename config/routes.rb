@@ -32,7 +32,7 @@ Rails.application.routes.draw do
     get '/users/:id' => 'data#user'
     get '/dogs' => 'data#dogs'
     get '/dogs/:id' => 'data#dog'
-    post '/comments' => 'data#create_comment'
+    post '/pettings/:id/comments' => 'data#create_comment'
   end 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

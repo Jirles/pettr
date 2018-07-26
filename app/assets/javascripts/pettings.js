@@ -20,6 +20,16 @@ $(function(){
                 $('#edit-delete-btns').html(record.setEditDeleteButtons(pageDataset.currentuserid));
             });
         };
+
+        $('#comments-submission-form').submit(function(e){
+            e.preventDefault();
+            const data = $('textarea').val();
+            const id = $('.show.pettings').data('recordid');
+            const posting = $.post(`/api/pettings/${id}/comments`, { 'petting_id': id, 'content': data });
+            posting.done(function(data){
+                $('#comments-collection').prepend(`<div class='comment-card'>${data.content}</div>`);
+            });
+        });
     });
 });
 

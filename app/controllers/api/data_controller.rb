@@ -1,5 +1,5 @@
 class Api::DataController < ApplicationController
-    skip_before_action :require_login
+    skip_before_action :require_login, :set_current_user
 
     def pettings
         @pettings ||= Petting.most_recent
@@ -26,7 +26,15 @@ class Api::DataController < ApplicationController
         render json: @user, status: 200
     end 
 
-    def comments
-        # create a new comment
+    def create_comment
+        @comment = Comment.create(comment_params)
+        render json: @comment, status: 201
     end 
+
+    private
+
+    def comment_params
+        params.permit(:petting_id, :content)
+    end 
+
 end 
