@@ -10,7 +10,7 @@ $(function(){
         if ($('.show.pettings').length){
             const pageDataset = $('.show.pettings').data();
             $.get(`/api/pettings/${pageDataset.recordid}`, function(data){
-                const record = new Petting(data.id, data.dog_id, data.name, data.pet_rating, data.description, data.location, data.breed, data.user.first_name, data.user.last_name, data.user.id)
+                const record = new Petting(data.id, data.dog_id, data.name, data.pet_rating, data.description, data.location, data.breed, data.comments, data.user.first_name, data.user.last_name, data.user.id)
                 $('#description').text(record.description);
                 $('#rating-tagline').text(`${record.rating}/5.0 would pet again`);
                 $('#dog-name').text(`Doggo: ${record.name}`);
@@ -18,6 +18,8 @@ $(function(){
                 $('#link-to-user-page').html(`Pet by ${record.linkToUserPage()}`);
                 $('#petting-location').text(record.location);
                 $('#edit-delete-btns').html(record.setEditDeleteButtons(pageDataset.currentuserid));
+                const comments = record.createCommentCards();
+                $('#comments-collection').prepend(comments);
             });
         };
 
@@ -34,7 +36,7 @@ $(function(){
 });
 
 class Petting {
-    constructor(id, dogId, name, rating, description, location, breed, userFirstName, userLastName, userId){
+    constructor(id, dogId, name, rating, description, location, breed, comments, userFirstName, userLastName, userId){
         this.id = id;
         this.dogId = dogId;
         this.name = name;
@@ -42,6 +44,7 @@ class Petting {
         this.description = description;
         this.location = location;
         this.breed = breed;
+        this.comments = comments;
         this.userName = userFirstName + " " + userLastName;
         this.userId = userId;
     }
@@ -66,6 +69,12 @@ class Petting {
         return `<span class='petting-info-span petting-description-link'><a href='/pettings/${this.id}'>${this.description}</a></span>`;
     }
 
+    createCommentCards(){
+        return $.map(this.comments, function(comment){
+            return `<div class='comment-card'>${comment.content}</div>`
+        }).join('');
+    }
+
     createPetCard(){
         let card = '<div class="petting-card" >';
         card += this.descriptionLinkFormatter();
@@ -86,7 +95,7 @@ class Petting {
 
     static createPetCardCollectionFromJSON(json){
        return  $.map(json, function(petting){
-            const record = new Petting(petting.id, petting.dog_id, petting.name, petting.pet_rating, petting.description, petting.location, petting.breed, petting.user.first_name, petting.user.last_name, petting.user.id)
+            const record = new Petting(petting.id, petting.dog_id, petting.name, petting.pet_rating, petting.description, petting.location, petting.breed, petting.comments, petting.user.first_name, petting.user.last_name, petting.user.id)
             return record.createPetCard()
           }).join('');
     }
