@@ -1,6 +1,6 @@
 class Owner::DogsController < ApplicationController
   before_action :set_dog, :authenticate_owner
-  skip_before_action :set_dog, only: [:new, :create, :show]
+  skip_before_action :set_dog, only: [:new, :create]
   skip_before_action :authenticate_owner, only: [:new, :create]
 
   def show
