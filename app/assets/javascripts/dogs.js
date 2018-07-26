@@ -18,7 +18,7 @@ $(function(){
                 $('#dog-city').text(dog.city);
                 $('#dog-details-div').html(dog.createDogDetailsForProfile());
                 $('#dog-pats-tagline').text(`${dog.name}'s Pats`);
-                const pettingCards = Petting.createTrunacatedPetCardCollection(data.pettings);
+                const pettingCards = Petting.createTruncatedPetCardCollection(data.pettings);
                 $('#dog-pettings-div').html(pettingCards);
                 $('#owner-editing-options').html(dog.profileEditDeleteButtons());
             });

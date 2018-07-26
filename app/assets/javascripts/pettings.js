@@ -44,9 +44,14 @@ $(function(){
 
     $(document).on('click', '.js-shrink-petting', function(e){
         const id = $(this).data('id');
+        const truncated = $(`#petting-card-${id}`).data('truncated');
         $.get(`/api/pettings/${id}`, function(data){
             const record = new Petting(data.id, data.dog_id, data.name, data.pet_rating, data.description, data.location, data.breed, data.comments, data.user.first_name, data.user.last_name, data.user.id)
-            $(`#petting-card-${id}`).html(record.createRegularPettingCardContent());
+            if (truncated) {
+                $(`#petting-card-${id}`).html(record.createTruncatedPetCardContent());
+            } else {
+                $(`#petting-card-${id}`).html(record.createRegularPettingCardContent());
+            } 
         });
     });
 });
@@ -117,11 +122,15 @@ class Petting {
         card += '</div>'
         return card;
     }
-
-    createTrunacatedPetCard(){
-        let card = '<div class="petting-card">';
-        card += this.descriptionLinkFormatter();
+    createTruncatedPetCardContent(){
+        let card = this.descriptionLinkFormatter();
         card += this.pettingInfoSpan(this.indexRating());
+        card += this.pettingInfoSpan(`<button class='js-expand-petting' data-id='${this.id}'>See More</button>`)
+        return card;
+    }
+    createTruncatedPetCard(){
+        let card = `<div class="petting-card" id="petting-card-${this.id}" data-truncated='true'>`;
+        card += this.createTruncatedPetCardContent();
         card += '</div>'
         return card;
     }
@@ -133,10 +142,10 @@ class Petting {
           }).join('');
     }
 
-    static createTrunacatedPetCardCollection(json){
+    static createTruncatedPetCardCollection(json){
         return  $.map(json, function(petting){
             const record = new Petting(petting.id, petting.dog_id, petting.name, petting.pet_rating, petting.description, petting.location, petting.breed)
-            return record.createTrunacatedPetCard()
+            return record.createTruncatedPetCard()
           }).join('');
     }
 
