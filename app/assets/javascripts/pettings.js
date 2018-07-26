@@ -112,14 +112,14 @@ class Petting {
     }
 
     createPetCard(){
-        let card = `<div id="petting-card-${this.id}" data-id="${this.id}">`;
+        let card = `<div class='petting-card' id="petting-card-${this.id}" data-id="${this.id}">`;
         card += this.createRegularPettingCardContent();
         card += '</div>'
         return card;
     }
 
     createTrunacatedPetCard(){
-        let card = '<div class="petting-card" >';
+        let card = '<div class="petting-card">';
         card += this.descriptionLinkFormatter();
         card += this.pettingInfoSpan(this.indexRating());
         card += '</div>'
