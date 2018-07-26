@@ -12,7 +12,7 @@ $(function(){
             $.get(`/api/pettings/${pageDataset.recordid}`, function(data){
                 const record = new Petting(data.id, data.dog_id, data.name, data.pet_rating, data.description, data.location, data.breed, data.comments, data.user.first_name, data.user.last_name, data.user.id)
                 $('#description').text(record.description);
-                $('#rating-tagline').text(`${record.rating}/5.0 would pet again`);
+                $('#rating-tagline').text(record.indexRating());
                 $('#dog-name').text(`Doggo: ${record.name}`);
                 $('#dog-breed').text(`Breed: ${record.breed}`);
                 $('#link-to-user-page').html(`Pet by ${record.linkToUserPage()}`);
@@ -22,15 +22,31 @@ $(function(){
                 $('#comments-collection').prepend(comments);
             });
         };
+    });
 
-        $('#comments-submission-form').submit(function(e){
-            e.preventDefault();
-            const data = $('textarea').val();
-            const id = $('.show.pettings').data('recordid');
-            const posting = $.post(`/api/pettings/${id}/comments`, { 'petting_id': id, 'content': data });
-            posting.done(function(data){
-                $('#comments-collection').prepend(`<div class='comment-card'>${data.content}</div>`);
-            });
+    $(document).on('submit', '#comments-submission-form', function(e){
+        e.preventDefault();
+        const data = $('textarea').val();
+        const id = $('.show.pettings').data('recordid');
+        const posting = $.post(`/api/pettings/${id}/comments`, { 'petting_id': id, 'content': data });
+        posting.done(function(data){
+            $('#comments-collection').prepend(`<div class='comment-card'>${data.content}</div>`);
+        });
+    });
+
+    $(document).on('click', '.js-expand-petting', function(e){
+        const id = $(this).data('id');
+        $.get(`/api/pettings/${id}`, function(data){
+            const record = new Petting(data.id, data.dog_id, data.name, data.pet_rating, data.description, data.location, data.breed, data.comments, data.user.first_name, data.user.last_name, data.user.id)
+            $(`#petting-card-${id}`).html(record.createExpandedPettingCard());
+        });
+    });
+
+    $(document).on('click', '.js-shrink-petting', function(e){
+        const id = $(this).data('id');
+        $.get(`/api/pettings/${id}`, function(data){
+            const record = new Petting(data.id, data.dog_id, data.name, data.pet_rating, data.description, data.location, data.breed, data.comments, data.user.first_name, data.user.last_name, data.user.id)
+            $(`#petting-card-${id}`).html(record.createRegularPettingCardContent());
         });
     });
 });
@@ -62,11 +78,31 @@ class Petting {
     }
 
     indexPetFormatter(){
-        return `<span class='petting-info-span'>${this.linkToUserPage()} pet ${this.name}</span>`;
+        return this.pettingInfoSpan(`${this.linkToUserPage()} pet ${this.name}`);
     }
 
     descriptionLinkFormatter(){
         return `<span class='petting-info-span petting-description-link'><a href='/pettings/${this.id}'>${this.description}</a></span>`;
+    }
+
+    createExpandedPettingCard(){
+        let card = this.descriptionLinkFormatter();
+        card += this.pettingInfoSpan(`Doggo: ${this.name}`);
+        card += this.pettingInfoSpan(`Breed: ${this.breed}`);
+        card += this.pettingInfoSpan(`Pet by ${this.linkToUserPage()}`);
+        card += this.pettingInfoSpan(this.location);
+        card += this.pettingInfoSpan(`<em>${this.comments.length} Comments</em>`)
+        card += this.pettingInfoSpan(`<button class='js-shrink-petting' data-id='${this.id}'>See Less</button>`)
+        return card;
+    }
+
+    createRegularPettingCardContent(){
+        let card = this.descriptionLinkFormatter();
+        card += this.indexPetFormatter();
+        card += this.pettingInfoSpan(this.indexRating());
+        card += this.pettingInfoSpan(this.location);
+        card += this.pettingInfoSpan(`<button class='js-expand-petting' data-id='${this.id}'>See More</button>`)
+        return card;
     }
 
     createCommentCards(){
@@ -76,11 +112,8 @@ class Petting {
     }
 
     createPetCard(){
-        let card = '<div class="petting-card" >';
-        card += this.descriptionLinkFormatter();
-        card += this.indexPetFormatter();
-        card += this.pettingInfoSpan(this.indexRating());
-        card += this.pettingInfoSpan(this.location);
+        let card = `<div id="petting-card-${this.id}" data-id="${this.id}">`;
+        card += this.createRegularPettingCardContent();
         card += '</div>'
         return card;
     }
