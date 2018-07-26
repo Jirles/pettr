@@ -12,7 +12,7 @@ module DogsHelper
     if user == current_user
       address = "Your"
     else
-      address = "#{user.name}'s"
+      address = "#{user.first_name}'s"
     end
   end
 

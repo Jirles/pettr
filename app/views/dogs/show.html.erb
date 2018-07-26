@@ -1,1 +1,3 @@
-<%= render partial: 'profile_view', locals: {dog: @dog, pettings: @pettings}%>
+<div class="dogs show" data-currentUserId="<%=@current_user.id%>" data-recordId="<%=params[:id]%>">
+    <%= render partial: 'profile_view' %>
+</div>

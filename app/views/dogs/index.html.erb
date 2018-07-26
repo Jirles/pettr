@@ -1,11 +1,8 @@
-<h1>Doggos</h1>
+<div class="dogs index">
+  <h1>Doggos</h1>
 
-<% @dogs.each do |dog| %>
-  <div class="dog-profile-card">
-    <span class="dog-info-span dog-name-link"><%= link_to dog.name, dog_path(dog) %></span><br>
-    <span class="dog-info-span"><%= dog.breed %></span><br>
-    <span class="dog-info-span"><%= dog.city %> </span><br>
-    <span class="dog-info-span"><%= dog_show_rating_display.call(dog.user_rating) %></span>
+
+  <div id="dog-profile-cards">
   </div>
-  <br>
-<% end %>
+ 
+</div>

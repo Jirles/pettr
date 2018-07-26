@@ -1,10 +1,9 @@
 class PettingsController < ApplicationController
-  before_action :set_petting, only: [:show, :edit, :update, :destroy]
+  before_action :set_petting, only: [:edit, :update, :destroy]
   before_action :owner_permissions_check, only: [:edit, :update, :destroy]
   skip_before_action :require_login, only: [:index]
 
   def index
-    @pettings = Petting.most_recent
   end
 
   def show

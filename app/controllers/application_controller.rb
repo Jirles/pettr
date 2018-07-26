@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_current_user
-    @current_user = User.find_by(id: session[:user_id]) #=> fails gracefully (@current_user set to nil)
+    @current_user ||= User.find_by(id: session[:user_id]) #=> fails gracefully (@current_user set to nil)
   end
 
 end

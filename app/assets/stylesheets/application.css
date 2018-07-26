@@ -14,11 +14,61 @@
  *= require_self
  */
 
-/* petting display */
- span.petting-description-link {
+ /* body display */
+
+ body {
+     text-align: center;
+ }
+
+ /* navbar */
+
+ .clearfix:after {
+    content: ".";
+    visibility: hidden;
+    display: block;
+    height: 0;
+    clear: both;
+ }
+
+ ul#navbar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+#navbar li {
+    float: right;
+    border-left: 1px solid #706241;
+}
+
+#navbar li:first-child{
+    border-left: none;
+}
+
+#navbar #homepage-link {
+    font-size: 1.5em;
+    float: left;
+}
+
+#navbar li a {
+    display: block;
+    color:#706241;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+#navbar li a:hover {
+    background-color: rgb(243, 206, 84);
+}
+
+/* petting, dog display */
+ span.petting-description-link, span.dog-name-link {
     font-size: 1.25em;
 }
-span.petting-info-span {
+span.petting-info-span, span.dog-info-span, span.dog-profile-span {
     display: block;
 }
 
@@ -26,9 +76,16 @@ div.petting-card {
     margin-bottom: 2em;
 }
 
-.petting-description-link a:hover {
+.petting-description-link a:hover, .dog-name-link a:hover {
     text-decoration: underline;
 }
-.petting-description-link a {
+.petting-description-link a, .dog-name-link a {
     text-decoration: none;
+}
+
+.comment-card {
+    padding: 20px 20px;
+    border-bottom: 1px solid #706241;
+    width: 40%;
+    margin: auto;
 }

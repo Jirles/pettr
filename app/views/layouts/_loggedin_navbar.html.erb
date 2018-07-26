@@ -1,3 +1,4 @@
-<%= link_to "Doggos", dogs_path %>
-<%= link_to "#{@current_user.first_name}'s Profile", user_path(@current_user) %>
-<%= link_to "LogOut", logout_path, method: :delete %>
+<li><%= link_to "LogOut", logout_url, method: :delete %></li>
+<li><%= link_to "#{@current_user.first_name}'s Profile", user_url(@current_user) %></li>
+<li><%= link_to "Doggos", dogs_url %></li>
+
