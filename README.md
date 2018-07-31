@@ -5,12 +5,15 @@ Pettr lets you keep track of the dogs you pet! Finally, a dedicated app to petti
 Create a profile for you (and your pet!) and start keeping track of all those dogs you meet.
 
 ## Installation
-### Tests
-To use this app, just clone the repository and, in the command line, run `rake db:migrate RAILS_ENV=test` to set up the test database and run the tests in the spec folder with `rspec`. 
+
+### Download
+Fork and clone the respository into your local environment. Then be sure to run `rake db:migrate` to set up the database.
+
 ### Launch Server
 If all tests pass, launch the server with `thin start` and navigate to `localhost:3000` to see the homepage.
+
 ### Pet Doggos
-Then simply log-in/sign-up to get started. Happy petting :)
+Simply log-in/sign-up to get started. Happy petting :)
 
 ## Contributing
 
