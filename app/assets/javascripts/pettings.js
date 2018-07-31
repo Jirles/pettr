@@ -54,6 +54,14 @@ $(function(){
             } 
         });
     });
+
+    $(document).on('click', '.js-sort', function(e){
+        $.get('/api/pettings', function(data){
+            const sortedJSON = Petting.sortByPetRating(data);
+            pettingCards = Petting.createPetCardCollectionFromJSON(sortedJSON);
+            $('#petting-cards-container').html(pettingCards);
+          });
+    })
 });
 
 class Petting {
@@ -133,6 +141,10 @@ class Petting {
         card += this.createTruncatedPetCardContent();
         card += '</div>'
         return card;
+    }
+
+    static sortByPetRating(json){
+        return json.sort((a, b) => { return parseInt(b.pet_rating) - parseInt(a.pet_rating) });
     }
 
     static createPetCardCollectionFromJSON(json){
