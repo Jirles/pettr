@@ -2,7 +2,7 @@ $(function(){
     $(document).on('turbolinks:load', function(){
         if ($('.home.pettings').length){
             $.get('/api/pettings', function(data){
-                pettingCards = Petting.createPetCardCollectionFromJSON(data)
+                const pettingCards = Petting.createPetCardCollectionFromJSON(data)
                 $('#petting-cards-container').html(pettingCards);
               });
         };
@@ -58,7 +58,7 @@ $(function(){
     $(document).on('click', '.js-sort', function(e){
         $.get('/api/pettings', function(data){
             const sortedJSON = Petting.sortByPetRating(data);
-            pettingCards = Petting.createPetCardCollectionFromJSON(sortedJSON);
+            const pettingCards = Petting.createPetCardCollectionFromJSON(sortedJSON);
             $('#petting-cards-container').html(pettingCards);
           });
     })
